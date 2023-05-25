@@ -46,24 +46,7 @@ public class RGB_Wheel {
         }
     }
     
-    public void control2() {
-        // ‚±‚±‹ó—“
-        leftSpeed = forward - EDGE * p;
-        rightSpeed = forward + EDGE * p;
-        leftMotor.setSpeed(leftSpeed);
-        rightMotor.setSpeed(rightSpeed);
 
-        if (leftSpeed >= 0) {
-            leftMotor.forward();
-        } else {
-            leftMotor.backward();
-        }
-        if (rightSpeed >= 0) {
-            rightMotor.forward();
-        } else {
-            rightMotor.backward();
-        }
-    }
 
     public void setForward(float forward) {
         this.forward = forward;
