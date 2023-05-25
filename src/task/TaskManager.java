@@ -11,48 +11,50 @@ import game.Log;
 import lejos.hardware.lcd.LCD;
 
 /**
- * ƒ^ƒXƒNŠÇ—ƒNƒ‰ƒX
+ * ã‚¿ã‚¹ã‚¯ç®¡ç†ã‚¯ãƒ©ã‚¹
  * 
  * @author
  */
 public class TaskManager {
-    // ‹£‹Zƒ^ƒXƒN
+    // ç«¶æŠ€ã‚¿ã‚¹ã‚¯
     private GameTask gameTask;
-    // ƒƒOƒ^ƒXƒN
+    // ãƒ­ã‚°ã‚¿ã‚¹ã‚¯
     private LogTask logTask;
-    // ƒXƒPƒWƒ…[ƒ‰
+    // ã‚¹ã‚±ã‚¸ãƒ¥ãƒ¼ãƒ©
     private ScheduledExecutorService scheduler;
     private ScheduledFuture<?> futureGame;
     private ScheduledFuture<?> futureLog;
     private CountDownLatch countDownLatch;
 
     public TaskManager() {
-        // ƒ^ƒXƒN‰Šú‰» ŠJn
+        // ã‚¿ã‚¹ã‚¯åˆæœŸåŒ– é–‹å§‹
         LCD.drawString("Initialize", 0, 0);
-        // ƒXƒPƒWƒ…[ƒ‰¶¬
+        // ã‚¹ã‚±ã‚¸ãƒ¥ãƒ¼ãƒ©ç”Ÿæˆ
         scheduler = Executors.newScheduledThreadPool(2);
         countDownLatch = new CountDownLatch(1);
-        // ƒ^ƒXƒN¶¬
+        // ã‚¿ã‚¹ã‚¯ç”Ÿæˆ
         gameTask = new GameTask(countDownLatch, Game.getInstance());
         gameTask.setPriority(Thread.MAX_PRIORITY);
         logTask = new LogTask(Game.getInstance(), Log.getInstance());
         logTask.setPriority(Thread.NORM_PRIORITY);
 
-        // ƒ^ƒXƒN‰Šú‰»I—¹
+        // ã‚¿ã‚¹ã‚¯åˆæœŸåŒ–çµ‚äº†
         LCD.clear();
         Beep.ring();
     }
 
     /**
-     * ƒ^ƒXƒN‚ÌƒXƒPƒWƒ…[ƒŠƒ“ƒO
+     * ã‚¿ã‚¹ã‚¯ã®ã‚¹ã‚±ã‚¸ãƒ¥ãƒ¼ãƒªãƒ³ã‚°
      */
 
-    public void schedule() {// Rate‚©‚çDelay‚É•ÏX‚µ‚½
+    public void schedule() {// Rateã‹ã‚‰Delayã«å¤‰æ›´ã—ãŸ
+
         futureGame = scheduler.scheduleWithFixedDelay(gameTask, 0, 1000, TimeUnit.MILLISECONDS);
+
         futureLog = scheduler.scheduleWithFixedDelay(logTask, 0, 1000, TimeUnit.MILLISECONDS);
     }
     /*
-     * ‹£‹Zƒ^ƒXƒN‚ªI—¹‚·‚é‚Ü‚Å‘Ò‚Â
+     * ç«¶æŠ€ã‚¿ã‚¹ã‚¯ãŒçµ‚äº†ã™ã‚‹ã¾ã§å¾…ã¤
      */
 
     public void await() {
@@ -63,7 +65,7 @@ public class TaskManager {
         }
     }
     /*
-     * ƒ^ƒXƒN‚ÌÀs‚Ìæ‚èÁ‚µ‚ÆƒXƒPƒWƒ…[ƒ‰‚ÌƒVƒƒƒbƒgƒ_ƒEƒ“
+     * ã‚¿ã‚¹ã‚¯ã®å®Ÿè¡Œã®å–ã‚Šæ¶ˆã—ã¨ã‚¹ã‚±ã‚¸ãƒ¥ãƒ¼ãƒ©ã®ã‚·ãƒ£ãƒƒãƒˆãƒ€ã‚¦ãƒ³
      */
 
     public void shutdown() {
