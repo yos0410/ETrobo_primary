@@ -142,7 +142,7 @@ public class Log {
                 sb.append(",");
                 sb.append("\r\n");
             }
-
+            
             File file = new File("log.csv");
             FileWriter fw = new FileWriter(file);
             BufferedWriter bw = new BufferedWriter(fw);
