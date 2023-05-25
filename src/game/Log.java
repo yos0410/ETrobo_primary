@@ -126,7 +126,7 @@ public class Log {
             sb.append(Float.toString(game.course.getRGB_Target()));
             sb.append("\r\n\r\n");
             // ÉåÉRÅ[Éhïî
-            sb.append("count,status,brightness,forward,leftspeed,rightspeed,turn,color\r\n");
+            sb.append("count,status,RGB,forward,leftspeed,rightspeed\r\n");
             for (LogData data : logList) {
                 sb.append(Integer.toString(data.getCount()));
                 sb.append(",");
@@ -140,9 +140,6 @@ public class Log {
                 sb.append(",");
                 sb.append(Float.toString(data.getRightSpeed()));
                 sb.append(",");
-                sb.append(Float.toString(data.getTurn()));
-                sb.append(",");
-                sb.append(Float.toString(data.getColor()));
                 sb.append("\r\n");
             }
 
