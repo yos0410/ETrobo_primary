@@ -11,48 +11,52 @@ import game.Log;
 import lejos.hardware.lcd.LCD;
 
 /**
- * ƒ^ƒXƒNŠÇ—ƒNƒ‰ƒX
+ * ç¹§ï½¿ç¹§ï½¹ç¹§ï½¯é‚‚ï½¡é€…ï¿½ç¹§ï½¯ç¹ï½©ç¹§ï½¹
  * 
  * @author
  */
 public class TaskManager {
-    // ‹£‹Zƒ^ƒXƒN
+    // é¶ï½¶è¬šï¿½ç¹§ï½¿ç¹§ï½¹ç¹§ï½¯
     private GameTask gameTask;
-    // ƒƒOƒ^ƒXƒN
+    // ç¹ï½­ç¹§ï½°ç¹§ï½¿ç¹§ï½¹ç¹§ï½¯
     private LogTask logTask;
-    // ƒXƒPƒWƒ…[ƒ‰
+    // ç¹§ï½¹ç¹§ï½±ç¹§ï½¸ç¹ï½¥ç¹ï½¼ç¹ï½©
     private ScheduledExecutorService scheduler;
     private ScheduledFuture<?> futureGame;
     private ScheduledFuture<?> futureLog;
     private CountDownLatch countDownLatch;
 
     public TaskManager() {
-        // ƒ^ƒXƒN‰Šú‰» ŠJn
+        // ç¹§ï½¿ç¹§ï½¹ç¹§ï½¯è›»æ™„æ‚„è›¹ï¿½ é«¢å¥ï½§ï¿½
         LCD.drawString("Initialize", 0, 0);
-        // ƒXƒPƒWƒ…[ƒ‰¶¬
+        // ç¹§ï½¹ç¹§ï½±ç¹§ï½¸ç¹ï½¥ç¹ï½¼ç¹ï½©é€•æ»“ï¿½ï¿½
         scheduler = Executors.newScheduledThreadPool(2);
         countDownLatch = new CountDownLatch(1);
-        // ƒ^ƒXƒN¶¬
+        // ç¹§ï½¿ç¹§ï½¹ç¹§ï½¯é€•æ»“ï¿½ï¿½
         gameTask = new GameTask(countDownLatch, Game.getInstance());
         gameTask.setPriority(Thread.MAX_PRIORITY);
         logTask = new LogTask(Game.getInstance(), Log.getInstance());
         logTask.setPriority(Thread.NORM_PRIORITY);
 
-        // ƒ^ƒXƒN‰Šú‰»I—¹
+        // ç¹§ï½¿ç¹§ï½¹ç¹§ï½¯è›»æ™„æ‚„è›¹ä¹Ÿï½µã‚†ï½ºï¿½
         LCD.clear();
         Beep.ring();
     }
 
     /**
-     * ƒ^ƒXƒN‚ÌƒXƒPƒWƒ…[ƒŠƒ“ƒO
+     * ç¹§ï½¿ç¹§ï½¹ç¹§ï½¯ç¸ºï½®ç¹§ï½¹ç¹§ï½±ç¹§ï½¸ç¹ï½¥ç¹ï½¼ç¹ï½ªç¹ï½³ç¹§ï½°
      */
 
-    public void schedule() {// Rate‚©‚çDelay‚É•ÏX‚µ‚½
-        futureGame = scheduler.scheduleWithFixedDelay(gameTask, 0, 153, TimeUnit.MILLISECONDS);
+
+
+    public void schedule() {// Rateã‹ã‚‰Delayã«å¤‰æ›´ã—ãŸ
+        futureGame = scheduler.scheduleWithFixedDelay(gameTask, 0, 10, TimeUnit.MILLISECONDS);
+
+  
         futureLog = scheduler.scheduleWithFixedDelay(logTask, 0, 1000, TimeUnit.MILLISECONDS);
     }
     /*
-     * ‹£‹Zƒ^ƒXƒN‚ªI—¹‚·‚é‚Ü‚Å‘Ò‚Â
+     * é¶ï½¶è¬šï¿½ç¹§ï½¿ç¹§ï½¹ç¹§ï½¯ç¸ºæªï½µã‚†ï½ºï¿½ç¸ºå¶ï½‹ç¸ºï½¾ç¸ºï½§è •ï¿½ç¸ºï½¤
      */
 
     public void await() {
@@ -63,7 +67,7 @@ public class TaskManager {
         }
     }
     /*
-     * ƒ^ƒXƒN‚ÌÀs‚Ìæ‚èÁ‚µ‚ÆƒXƒPƒWƒ…[ƒ‰‚ÌƒVƒƒƒbƒgƒ_ƒEƒ“
+     * ç¹§ï½¿ç¹§ï½¹ç¹§ï½¯ç¸ºï½®è³æº¯ï½¡å¾Œï¿½ï½®èœ¿æ‚¶ï½Šè±¸åŒ»ï¼ ç¸ºï½¨ç¹§ï½¹ç¹§ï½±ç¹§ï½¸ç¹ï½¥ç¹ï½¼ç¹ï½©ç¸ºï½®ç¹§ï½·ç¹ï½£ç¹ï¿½ç¹åŒ»ãƒ ç¹§ï½¦ç¹ï½³
      */
 
     public void shutdown() {
