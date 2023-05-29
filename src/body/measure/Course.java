@@ -4,7 +4,7 @@ import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.SensorMode;
 
 /**
- * è·¯é¢è¨ˆæ¸¬ã‚¯ãƒ©ã‚¹
+ * ˜H–ÊŒv‘ªƒNƒ‰ƒX
  * 
  * @author
  *
@@ -52,11 +52,11 @@ public class Course implements Measure {
     }
 
     /**
-     * æ›´æ–°ã™ã‚‹
+     * XV‚·‚é
      */
     @Override
     public void update() {
-        // ã“ã“ç©ºæ¬„
+        // ‚±‚±‹ó—“
         sensorMode.fetchSample(value, 0);
         brightness = value[0];
 

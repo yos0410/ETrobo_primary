@@ -10,13 +10,13 @@ import java.util.List;
 import lejos.hardware.lcd.LCD;
 
 /**
- * ãƒ­ã‚°ã‚¯ãƒ©ã‚¹ ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å˜ä¸€ã«ã™ã‚‹ãŸã‚ã€Singleton ãƒ‘ã‚¿ãƒ¼ãƒ³ã‚’æ¡ç”¨
+ * ƒƒOƒNƒ‰ƒX ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ’Pˆê‚É‚·‚é‚½‚ßASingleton ƒpƒ^[ƒ“‚ğÌ—p
  * 
  * @author
  *
  */
 public class Log {
-    // ã‚¿ã‚¹ã‚¯ã®å‘¼ã³å‡ºã—å›æ•°
+    // ƒ^ƒXƒN‚ÌŒÄ‚Ño‚µ‰ñ”
     private int count;
 
     private static Log instance = new Log();
@@ -104,7 +104,7 @@ public class Log {
     }
 
     /**
-     * è¿½åŠ ã™ã‚‹
+     * ’Ç‰Á‚·‚é
      */
     public void add() {
         logList.add(new LogData(count, game.getStatus(), game.course.getRGB(), game.wheel.getForward(),
@@ -112,12 +112,12 @@ public class Log {
     }
 
     /**
-     * ãƒ•ã‚¡ã‚¤ãƒ«ã«ä¿å­˜ã™ã‚‹
+     * ƒtƒ@ƒCƒ‹‚É•Û‘¶‚·‚é
      */
     public void write() {
         try {
             StringBuilder sb = new StringBuilder();
-            // ãƒ˜ãƒƒãƒ€ãƒ¼éƒ¨
+            // ƒwƒbƒ_[•”
             sb.append("white,black,target\r\n");
             sb.append(Float.toString(game.course.getRGB_White()));
             sb.append(",");
@@ -125,7 +125,7 @@ public class Log {
             sb.append(",");
             sb.append(Float.toString(game.course.getRGB_Target()));
             sb.append("\r\n\r\n");
-            // ãƒ¬ã‚³ãƒ¼ãƒ‰éƒ¨
+            // ƒŒƒR[ƒh•”
             sb.append("count,status,RGB,forward,leftspeed,rightspeed\r\n");
             for (LogData data : logList) {
                 sb.append(Integer.toString(data.getCount()));

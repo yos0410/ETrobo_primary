@@ -6,7 +6,7 @@ import game.Game.STATUS;
 import lejos.hardware.lcd.LCD;
 
 /**
- * 繝ｭ繧ｰ繧ｿ繧ｹ繧ｯ
+ * ログタスク
  * 
  * @author 
  */

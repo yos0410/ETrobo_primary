@@ -1,12 +1,12 @@
 package body.measure;
 
 /**
- * 險域ｸｬ繧､繝ｳ繧ｿ繝輔ぉ繝ｼ繧ｹ
+ * 計測インタフェース
  * 
  * @author 
  *
  */
 public interface Measure {
-    /// 譖ｴ譁ｰ縺吶ｋ
+    /// 更新する
     public void update();
 }

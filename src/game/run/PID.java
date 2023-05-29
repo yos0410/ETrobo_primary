@@ -7,18 +7,18 @@ public class PID {
     private Course course;
     private Wheel wheel;
 
-    private float forward = 200.0f;// å‰é€²é€Ÿåº¦
+    private float forward = 200.0f;// ‘Oi‘¬“x
     private float Kp = 800.0f;
     private float Ki = 20.0f;
     private float Kd = 250.0f;
-    // å®‰å®šèµ°è¡Œ 200 800 20 250
+    // ˆÀ’è‘–s 200 800 20 250
     private float p;
 
     private float lasterr;
     private float last2err;
 
-    private float err;// è¼åº¦å€¤-ç›®æ¨™è¼åº¦å€¤
-    private float diff;// å¾®åˆ†å€¤
+    private float err;// ‹P“x’l-–Ú•W‹P“x’l
+    private float diff;// ”÷•ª’l
     private float integral;//
 
     public PID(Course course, Wheel wheel) {
@@ -27,31 +27,31 @@ public class PID {
     }
 
     /**
-     * èµ°è¡Œã™ã‚‹
+     * ‘–s‚·‚é
      */
     public void run() {
-        // ç›®æ¨™è¼åº¦å€¤
+        // –Ú•W‹P“x’l
         float target = course.getTarget();
-        // ç¾åœ¨ã®è¼åº¦å€¤
+        // Œ»İ‚Ì‹P“x’l
         float brightness = course.getBrightness();
 
-        // ã‚¨ãƒ©ãƒ¼å€¤
+        // ƒGƒ‰[’l
         err = brightness - target;
 
-        // å¾®åˆ†å€¤ã®è¨ˆç®—
+        // ”÷•ª’l‚ÌŒvZ
         diff = (err - lasterr) - (lasterr - last2err);
 
         //
         integral = err;
 
-        // pã®è¨ˆç®—
+        // p‚ÌŒvZ
         p = p + Kp * (err - lasterr) + Ki * integral + Kd * diff;
 
-        // å‰å›ã‚’å‰ã€…å›ã«
+        // ‘O‰ñ‚ğ‘OX‰ñ‚É
         last2err = lasterr;
-        // ä»Šå›ã‚’å‰å›ã«
+        // ¡‰ñ‚ğ‘O‰ñ‚É
         lasterr = err;
-        // é€Ÿåº¦ã€æ“ä½œé‡è¨­å®š
+        // ‘¬“xA‘€ì—Êİ’è
         wheel.setForward(forward);
         wheel.setPid(p);
     }

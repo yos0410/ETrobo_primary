@@ -3,7 +3,7 @@ package game;
 import game.Game.STATUS;
 
 /**
- * ãƒ­ã‚°ãƒ‡ãƒ¼ã‚¿ï¼ˆä¸€ä»¶åˆ†ï¼‰ã‚¯ãƒ©ã‚¹
+ * ƒƒOƒf[ƒ^iˆêŒ•ªjƒNƒ‰ƒX
  * 
  * @author
  *
