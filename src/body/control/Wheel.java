@@ -3,7 +3,7 @@ package body.control;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 
 /**
- * Ô—Ö§ŒäƒNƒ‰ƒX
+ * è»Šè¼ªåˆ¶å¾¡ã‚¯ãƒ©ã‚¹
  * 
  * @author
  *
@@ -17,7 +17,7 @@ public class Wheel {
     private float rightSpeed;
 
     private float p;
-    private int EDGE = 1;// 1=‰E -1=¶
+    private int EDGE = 1;// 1=å³ -1=å·¦
 
     public Wheel(EV3LargeRegulatedMotor leftMotor, EV3LargeRegulatedMotor rightMotor) {
         this.leftMotor = leftMotor;
@@ -25,10 +25,10 @@ public class Wheel {
     }
 
     /**
-     * §Œä‚·‚é
+     * åˆ¶å¾¡ã™ã‚‹
      */
     public void control() {
-        // ‚±‚±‹ó—“
+        // ã“ã“ç©ºæ¬„
         leftSpeed = forward - EDGE * p;
         rightSpeed = forward + EDGE * p;
         leftMotor.setSpeed(leftSpeed);
