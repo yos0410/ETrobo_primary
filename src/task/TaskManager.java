@@ -54,9 +54,6 @@ public class TaskManager {
     public void schedule() {// RateからDelayに変更した
         futureGame = scheduler.scheduleWithFixedDelay(gameTask, 0, 10, TimeUnit.MILLISECONDS);
 
-  
-
-
         futureLog = scheduler.scheduleWithFixedDelay(logTask, 0, 1000, TimeUnit.MILLISECONDS);
     }
     /*
