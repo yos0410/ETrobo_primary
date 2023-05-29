@@ -8,7 +8,7 @@ import lejos.hardware.lcd.LCD;
 /**
  * ログタスク
  * 
- * @author 
+ * @author
  */
 
 public class LogTask extends Thread {
