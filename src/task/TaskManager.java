@@ -48,7 +48,7 @@ public class TaskManager {
      */
 
     public void schedule() {// RateÇ©ÇÁDelayÇ…ïœçXÇµÇΩ
-        futureGame = scheduler.scheduleWithFixedDelay(gameTask, 0, 153, TimeUnit.MILLISECONDS);
+        futureGame = scheduler.scheduleWithFixedDelay(gameTask, 0, 155, TimeUnit.MILLISECONDS);
         futureLog = scheduler.scheduleWithFixedDelay(logTask, 0, 1000, TimeUnit.MILLISECONDS);
     }
     /*
