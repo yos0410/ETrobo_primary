@@ -46,7 +46,7 @@ public class PID {
 
         // pの計算
         p = p + Kp * (err - lasterr) + Ki * integral + Kd * diff;
-
+        
         // 前回を前々回に
         last2err = lasterr;
         // 今回を前回に
