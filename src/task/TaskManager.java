@@ -5,59 +5,53 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-
+import lejos.hardware.lcd.LCD;
 import game.Game;
 import game.Log;
-import lejos.hardware.lcd.LCD;
 
 /**
- * ç¹§ï½¿ç¹§ï½¹ç¹§ï½¯é‚‚ï½¡é€…ï¿½ç¹§ï½¯ç¹ï½©ç¹§ï½¹
+ * ƒ^ƒXƒNŠÇ—ƒNƒ‰ƒX
  * 
  * @author
  */
 public class TaskManager {
-    // é¶ï½¶è¬šï¿½ç¹§ï½¿ç¹§ï½¹ç¹§ï½¯
+    // ‹£‹Zƒ^ƒXƒN
     private GameTask gameTask;
-    // ç¹ï½­ç¹§ï½°ç¹§ï½¿ç¹§ï½¹ç¹§ï½¯
+    // ƒƒOƒ^ƒXƒN
     private LogTask logTask;
-    // ç¹§ï½¹ç¹§ï½±ç¹§ï½¸ç¹ï½¥ç¹ï½¼ç¹ï½©
+    // ƒXƒPƒWƒ…[ƒ‰
     private ScheduledExecutorService scheduler;
     private ScheduledFuture<?> futureGame;
     private ScheduledFuture<?> futureLog;
     private CountDownLatch countDownLatch;
 
     public TaskManager() {
-        // ç¹§ï½¿ç¹§ï½¹ç¹§ï½¯è›»æ™„æ‚„è›¹ï¿½ é«¢å¥ï½§ï¿½
+        // ƒ^ƒXƒN‰Šú‰» ŠJn
         LCD.drawString("Initialize", 0, 0);
-        // ç¹§ï½¹ç¹§ï½±ç¹§ï½¸ç¹ï½¥ç¹ï½¼ç¹ï½©é€•æ»“ï¿½ï¿½
+        // ƒXƒPƒWƒ…[ƒ‰¶¬
         scheduler = Executors.newScheduledThreadPool(2);
         countDownLatch = new CountDownLatch(1);
-        // ç¹§ï½¿ç¹§ï½¹ç¹§ï½¯é€•æ»“ï¿½ï¿½
+        // ƒ^ƒXƒN¶¬
         gameTask = new GameTask(countDownLatch, Game.getInstance());
         gameTask.setPriority(Thread.MAX_PRIORITY);
         logTask = new LogTask(Game.getInstance(), Log.getInstance());
         logTask.setPriority(Thread.NORM_PRIORITY);
 
-        // ç¹§ï½¿ç¹§ï½¹ç¹§ï½¯è›»æ™„æ‚„è›¹ä¹Ÿï½µã‚†ï½ºï¿½
+        // ƒ^ƒXƒN‰Šú‰»I—¹
         LCD.clear();
         Beep.ring();
     }
 
     /**
-     * ç¹§ï½¿ç¹§ï½¹ç¹§ï½¯ç¸ºï½®ç¹§ï½¹ç¹§ï½±ç¹§ï½¸ç¹ï½¥ç¹ï½¼ç¹ï½ªç¹ï½³ç¹§ï½°
+     * ƒ^ƒXƒN‚ÌƒXƒPƒWƒ…[ƒŠƒ“ƒO
      */
 
-
-
-
-
-    public void schedule() {// Rateã‹ã‚‰Delayã«å¤‰æ›´ã—ãŸ
+    public void schedule() {// Rate‚©‚çDelay‚É•ÏX‚µ‚½
         futureGame = scheduler.scheduleWithFixedDelay(gameTask, 0, 10, TimeUnit.MILLISECONDS);
-
         futureLog = scheduler.scheduleWithFixedDelay(logTask, 0, 1000, TimeUnit.MILLISECONDS);
     }
     /*
-     * é¶ï½¶è¬šï¿½ç¹§ï½¿ç¹§ï½¹ç¹§ï½¯ç¸ºæªï½µã‚†ï½ºï¿½ç¸ºå¶ï½‹ç¸ºï½¾ç¸ºï½§è •ï¿½ç¸ºï½¤
+     * ‹£‹Zƒ^ƒXƒN‚ªI—¹‚·‚é‚Ü‚Å‘Ò‚Â
      */
 
     public void await() {
@@ -68,7 +62,7 @@ public class TaskManager {
         }
     }
     /*
-     * ç¹§ï½¿ç¹§ï½¹ç¹§ï½¯ç¸ºï½®è³æº¯ï½¡å¾Œï¿½ï½®èœ¿æ‚¶ï½Šè±¸åŒ»ï¼ ç¸ºï½¨ç¹§ï½¹ç¹§ï½±ç¹§ï½¸ç¹ï½¥ç¹ï½¼ç¹ï½©ç¸ºï½®ç¹§ï½·ç¹ï½£ç¹ï¿½ç¹åŒ»ãƒ ç¹§ï½¦ç¹ï½³
+     * ƒ^ƒXƒN‚ÌÀs‚Ìæ‚èÁ‚µ‚ÆƒXƒPƒWƒ…[ƒ‰‚ÌƒVƒƒƒbƒgƒ_ƒEƒ“
      */
 
     public void shutdown() {
