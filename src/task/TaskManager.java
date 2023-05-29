@@ -47,18 +47,13 @@ public class TaskManager {
      * 繧ｿ繧ｹ繧ｯ縺ｮ繧ｹ繧ｱ繧ｸ繝･繝ｼ繝ｪ繝ｳ繧ｰ
      */
 
-<<<<<<< HEAD
-    public void schedule() {// Rate����Delay�ɕύX����
-        futureGame = scheduler.scheduleWithFixedDelay(gameTask, 0, 10, TimeUnit.MILLISECONDS);
-=======
+
+
+
 
     public void schedule() {// RateからDelayに変更した
         futureGame = scheduler.scheduleWithFixedDelay(gameTask, 0, 10, TimeUnit.MILLISECONDS);
 
-    
-
-
->>>>>>> refs/remotes/origin/master
         futureLog = scheduler.scheduleWithFixedDelay(logTask, 0, 1000, TimeUnit.MILLISECONDS);
     }
     /*
