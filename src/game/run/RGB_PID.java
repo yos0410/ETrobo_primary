@@ -7,7 +7,7 @@ public class RGB_PID {
     private Course course;
     private Wheel wheel;
 
-    private int forward = 200;// 前進速度
+    private int forward = 300;// 前進速度
     private int Kp = 800;
     private int Ki = 20;
     private int Kd = 250;
