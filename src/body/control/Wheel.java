@@ -34,16 +34,16 @@ public class Wheel {
         leftMotor.setSpeed(leftSpeed);
         rightMotor.setSpeed(rightSpeed);
 
-        if (leftSpeed >= 0) {
-            leftMotor.forward();
-        } else {
-            leftMotor.backward();
-        }
-        if (rightSpeed >= 0) {
-            rightMotor.forward();
-        } else {
-            rightMotor.backward();
-        }
+//        if (leftSpeed >= 0) {
+//            leftMotor.forward();
+//        } else {
+//            leftMotor.backward();
+//        }
+//        if (rightSpeed >= 0) {
+//            rightMotor.forward();
+//        } else {
+//            rightMotor.backward();
+//        }
     }
 
     public void setForward(float forward) {
