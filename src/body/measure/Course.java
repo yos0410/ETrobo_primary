@@ -33,7 +33,7 @@ public class Course implements Measure {
 
     public Course(EV3ColorSensor colorSensor) {
         Course3(colorSensor);
-        
+
         white = 0.4f;
         black = 0.0f;
         target = (white + black) / 2.0f;
@@ -69,15 +69,26 @@ public class Course implements Measure {
 
     public void update3() {
         sensorMode3.fetchSample(value3, 0);
-        color_R = (int) (value3[0]*255);
-        color_G = (int) (value3[1]*255);
-        color_B = (int) (value3[2]*255);
+        color_R = (int) (value3[0] * 255);
+        color_G = (int) (value3[1] * 255);
+        color_B = (int) (value3[2] * 255);
         RGB = ((color_R << 16) & 0xFF0000) | ((color_G << 8) & 0xFF00) | (color_B & 0xFF);
     }
-    
+
     public int getRGB() {
         return RGB;
     }
+    public int getR() {
+        return color_R;
+    }
+    public int getG() {
+        return color_G;
+    }
+    public int getB() {
+        return color_B;
+    }
+    
+    
 
     public int getRGB_White() {
         return RGB_white;
@@ -85,7 +96,7 @@ public class Course implements Measure {
 
     public void setRGB_White(int RGB_white) {
         this.RGB_white = RGB_white;
-    }   
+    }
 
     public int getRGB_Black() {
         return RGB_black;

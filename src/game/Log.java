@@ -20,7 +20,7 @@ public class Log {
     private int count;
 
     private static Log instance = new Log();
-    
+
     private static long startTime;
 
     private Game game;
@@ -29,7 +29,7 @@ public class Log {
 
     private Log() {
     }
-    
+
     public static void time() {
         startTime = System.currentTimeMillis();
     }
@@ -113,8 +113,9 @@ public class Log {
      * í«â¡Ç∑ÇÈ
      */
     public void add() {
-        logList.add(new LogData(System.currentTimeMillis()-startTime, game.getStatus(), game.course.getRGB(), game.wheel.getForward(),
-                game.wheel.getLeftSpeed(), game.wheel.getRightSpeed()));
+        logList.add(new LogData(System.currentTimeMillis() - startTime, game.getStatus(),
+                game.course.getRGB(),game.course.getR(),game.course.getG(),game.course.getB(),game.wheel.getForward(), game.wheel.getLeftSpeed(),
+                game.wheel.getRightSpeed()));
     }
 
     /**
@@ -132,13 +133,19 @@ public class Log {
             sb.append(Integer.toString(game.course.getRGB_Target()));
             sb.append("\r\n\r\n");
             // ÉåÉRÅ[Éhïî
-            sb.append("time,status,RGB,forward,leftspeed,rightspeed\r\n");
+            sb.append("time,status,RGB,R,G,B,forward,leftspeed,rightspeed\r\n");
             for (LogData data : logList) {
                 sb.append(Long.toString(data.getTime()));
                 sb.append(",");
                 sb.append(data.getStatus().toString());
                 sb.append(",");
                 sb.append(Integer.toString(data.RGB_brightness()));
+                sb.append(",");
+                sb.append(Integer.toString(data.getR()));
+                sb.append(",");
+                sb.append(Integer.toString(data.getG()));
+                sb.append(",");
+                sb.append(Integer.toString(data.getB()));
                 sb.append(",");
                 sb.append(Float.toString(data.getForward()));
                 sb.append(",");
@@ -148,7 +155,7 @@ public class Log {
                 sb.append(",");
                 sb.append("\r\n");
             }
-            
+
             File file = new File("log.csv");
             FileWriter fw = new FileWriter(file);
             BufferedWriter bw = new BufferedWriter(fw);

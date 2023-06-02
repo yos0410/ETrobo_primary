@@ -3,6 +3,7 @@ package game;
 import body.control.*;
 import body.measure.Course;
 import body.measure.Touch;
+import game.Game.STATUS;
 import game.run.PID;
 import game.run.RGB_PID;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
@@ -97,6 +98,7 @@ public class Game {
             course.update3();
             if (touch.isUpped()) {
                 Beep.ring();
+                Log.time();
                 status = STATUS.RUN;
             }
             break;
@@ -104,9 +106,9 @@ public class Game {
             course.update3();
             rgb_PID.run();
             wheel.control();
-            if (course.getTrueRGB_Blue()) {
-                status = STATUS.BLUE;
-            }
+//            if (course.getTrueRGB_Blue()) {
+//                status = STATUS.BLUE;
+//            }
             break;
         case BLUE:
             status = STATUS.WAITSTART;
