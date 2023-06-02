@@ -20,12 +20,18 @@ public class Log {
     private int count;
 
     private static Log instance = new Log();
+    
+    private static long startTime;
 
     private Game game;
 
     private static List<LogData> logList = new ArrayList<LogData>();
 
     private Log() {
+    }
+    
+    public static void time() {
+        startTime = System.currentTimeMillis();
     }
 
     public static Log getInstance() {
@@ -107,7 +113,7 @@ public class Log {
      * 追加する
      */
     public void add() {
-        logList.add(new LogData(count, game.getStatus(), game.course.getRGB(), game.wheel.getForward(),
+        logList.add(new LogData(System.currentTimeMillis()-startTime, game.getStatus(), game.course.getRGB(), game.wheel.getForward(),
                 game.wheel.getLeftSpeed(), game.wheel.getRightSpeed()));
     }
 
@@ -119,20 +125,20 @@ public class Log {
             StringBuilder sb = new StringBuilder();
             // ヘッダー部
             sb.append("white,black,target\r\n");
-            sb.append(Float.toString(game.course.getRGB_White()));
+            sb.append(Integer.toString(game.course.getRGB_White()));
             sb.append(",");
-            sb.append(Float.toString(game.course.getRGB_Black()));
+            sb.append(Integer.toString(game.course.getRGB_Black()));
             sb.append(",");
-            sb.append(Float.toString(game.course.getRGB_Target()));
+            sb.append(Integer.toString(game.course.getRGB_Target()));
             sb.append("\r\n\r\n");
             // レコード部
-            sb.append("count,status,RGB,forward,leftspeed,rightspeed\r\n");
+            sb.append("time,status,RGB,forward,leftspeed,rightspeed\r\n");
             for (LogData data : logList) {
-                sb.append(Integer.toString(data.getCount()));
+                sb.append(Long.toString(data.getTime()));
                 sb.append(",");
                 sb.append(data.getStatus().toString());
                 sb.append(",");
-                sb.append(Float.toString(data.RGB_brightness()));
+                sb.append(Integer.toString(data.RGB_brightness()));
                 sb.append(",");
                 sb.append(Float.toString(data.getForward()));
                 sb.append(",");
