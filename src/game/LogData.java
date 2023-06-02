@@ -9,7 +9,6 @@ import game.Game.STATUS;
  *
  */
 public class LogData {
-    private int count;
     private STATUS status;
     private int RGB_brightness;
     private float forward;
@@ -17,9 +16,10 @@ public class LogData {
     private float leftSpeed;
     private float rightSpeed;
     private float color;
+    private long time;
 
-    public LogData(int count, STATUS status, int RGB_brightness, float forward, float leftSpeed, float rightSpeed) {
-        this.count = count;
+    public LogData(long time, STATUS status, int RGB_brightness, float forward, float leftSpeed, float rightSpeed) {
+        this.time = time;
         this.status = status;
         this.RGB_brightness = RGB_brightness;
         this.forward = forward;
@@ -28,10 +28,10 @@ public class LogData {
 
     }
 
-    public int getCount() {
-        return count;
+    
+    public long getTime() {
+        return time;
     }
-
     public STATUS getStatus() {
         return status;
     }
@@ -59,4 +59,6 @@ public class LogData {
     public float getColor() {
         return color;
     }
+
+
 }

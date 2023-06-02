@@ -69,9 +69,9 @@ public class Course implements Measure {
 
     public void update3() {
         sensorMode3.fetchSample(value3, 0);
-        color_R = (int) value3[0];
-        color_G = (int) value3[1];
-        color_B = (int) value3[2];
+        color_R = (int) (value3[0]*255);
+        color_G = (int) (value3[1]*255);
+        color_B = (int) (value3[2]*255);
         RGB = ((color_R << 16) & 0xFF0000) | ((color_G << 8) & 0xFF00) | (color_B & 0xFF);
     }
     
