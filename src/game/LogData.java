@@ -45,13 +45,13 @@ public class LogData {
     public float RGB_brightness() {
         return RGB_brightness;
     }
-    public int getR() {
+    public float getR() {
         return R;
     }
-    public int getG() {
+    public float getG() {
         return G;
     }
-    public int getB() {
+    public float getB() {
         return B;
     }
 

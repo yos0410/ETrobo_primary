@@ -141,11 +141,11 @@ public class Log {
                 sb.append(",");
                 sb.append(Float.toString(data.RGB_brightness()));
                 sb.append(",");
-                sb.append(Integer.toString(data.getR()));
+                sb.append(Float.toString(data.getR()));
                 sb.append(",");
-                sb.append(Integer.toString(data.getG()));
+                sb.append(Float.toString(data.getG()));
                 sb.append(",");
-                sb.append(Integer.toString(data.getB()));
+                sb.append(Float.toString(data.getB()));
                 sb.append(",");
                 sb.append(Float.toString(data.getForward()));
                 sb.append(",");
