@@ -126,11 +126,11 @@ public class Log {
             StringBuilder sb = new StringBuilder();
             // ヘッダー部
             sb.append("white,black,target\r\n");
-            sb.append(Integer.toString(game.course.getRGB_White()));
+            sb.append(Float.toString(game.course.getRGB_White()));
             sb.append(",");
-            sb.append(Integer.toString(game.course.getRGB_Black()));
+            sb.append(Float.toString(game.course.getRGB_Black()));
             sb.append(",");
-            sb.append(Integer.toString(game.course.getRGB_Target()));
+            sb.append(Float.toString(game.course.getRGB_Target()));
             sb.append("\r\n\r\n");
             // レコード部
             sb.append("time,status,RGB,R,G,B,forward,leftspeed,rightspeed\r\n");
@@ -139,13 +139,13 @@ public class Log {
                 sb.append(",");
                 sb.append(data.getStatus().toString());
                 sb.append(",");
-                sb.append(Integer.toString(data.RGB_brightness()));
+                sb.append(Float.toString(data.RGB_brightness()));
                 sb.append(",");
-                sb.append(Integer.toString(data.getR()));
+                sb.append(Float.toString(data.getR()));
                 sb.append(",");
-                sb.append(Integer.toString(data.getG()));
+                sb.append(Float.toString(data.getG()));
                 sb.append(",");
-                sb.append(Integer.toString(data.getB()));
+                sb.append(Float.toString(data.getB()));
                 sb.append(",");
                 sb.append(Float.toString(data.getForward()));
                 sb.append(",");
