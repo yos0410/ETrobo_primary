@@ -106,12 +106,14 @@ public class Game {
             course.update3();
             rgb_PID.run();
             wheel.control();
-//            if (course.getTrueRGB_Blue()) {
-//                status = STATUS.BLUE;
-//            }
+            if (course.getTrueRGB_Blue()) {
+                status = STATUS.BLUE;
+            }
             break;
         case BLUE:
-            status = STATUS.WAITSTART;
+            course.update3();
+            rgb_PID.run();
+            wheel.control2();
             break;
         default:
             break;

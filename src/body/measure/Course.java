@@ -127,14 +127,13 @@ public class Course implements Measure {
     }
 
     public boolean getTrueRGB_Blue() {
-        if (color_B >= 150 || color_B <= 255) {
+        if (color_B >= 10 && color_R <= 6) {
             return true;
         }
         return false;
     }
-    
-    
-   /////////////////////////////////////////////////////////
+
+    /////////////////////////////////////////////////////////
 
     public float getWhite() {
         return white;
