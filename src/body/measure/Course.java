@@ -23,7 +23,7 @@ public class Course implements Measure {
     private float target;
     private float brightness;
     private float color;
-    
+
     private int color_R;
     private int color_G;
     private int color_B;
@@ -127,7 +127,9 @@ public class Course implements Measure {
     }
 
     public boolean getTrueRGB_Blue() {
-        if (color_B >= 10 && color_R <= 6) {
+        // color_B >= 10 && color_R <= 6
+        // color_B >= 9 && color_G <= 13 && color_R <=7
+        if (color_R >= 10 && color_R <= 11 && color_G >= 16 && color_G <= 17 && color_B >= 16) {
             return true;
         }
         return false;
