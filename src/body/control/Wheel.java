@@ -49,6 +49,9 @@ public class Wheel {
     public void setForward(float forward) {
         this.forward = forward;
     }
+    public void setPid(float p) {
+        this.p = p;
+    }
 
     public float getForward() {
         return forward;
@@ -62,8 +65,5 @@ public class Wheel {
         return rightSpeed;
     }
 
-    public void setPid(float p) {
-        this.p = p;
-    }
 
 }

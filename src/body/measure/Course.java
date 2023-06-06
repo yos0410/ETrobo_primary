@@ -23,15 +23,16 @@ public class Course implements Measure {
     private float target;
     private float brightness;
     private float color;
-    private float color_R;
-    private float color_G;
-    private float color_B;
+    
+    private int color_R;
+    private int color_G;
+    private int color_B;
     private float RGB;
     private float RGB_white;
     private float RGB_black;
     private float RGB_target;
 
-    int divide = 10000000;
+    int divite = 10000000;
 
     public Course(EV3ColorSensor colorSensor) {
         Course3(colorSensor);
@@ -71,46 +72,50 @@ public class Course implements Measure {
 
     public void update3() {
         sensorMode3.fetchSample(value3, 0);
-        color_R = (value3[0] );
-        color_G = (value3[1] );
-        color_B = (value3[2] );
-        RGB = (color_R + color_G + color_B)/3.0f;
+        color_R = (int) (value3[0] * 255);
+        color_G = (int) (value3[1] * 255);
+        color_B = (int) (value3[2] * 255);
+        RGB = ((color_R << 16) & 0xFF0000) | ((color_G << 8) & 0xFF00) | (color_B & 0xFF);
+    }
+
+    public float getDivideRGB() {
+        return RGB / divite;
+    }
+
+    public float getDivideRGB_Target() {
+        return RGB_target / divite;
     }
 
     public float getRGB() {
         return RGB;
     }
 
-    public float getDivideRGB() {
-        return RGB / divide;
-    }
-
-    public float getR() {
+    public int getR() {
         return color_R;
     }
 
-    public float getG() {
+    public int getG() {
         return color_G;
     }
 
-    public float getB() {
+    public int getB() {
         return color_B;
-    }
-
-    public float getRGB_White() {
-        return RGB_white;
     }
 
     public void setRGB_White(float RGB_white) {
         this.RGB_white = RGB_white;
     }
 
-    public float getRGB_Black() {
-        return RGB_black;
+    public float getRGB_White() {
+        return RGB_white;
     }
 
     public void setRGB_Black(float RGB_black) {
         this.RGB_black = RGB_black;
+    }
+
+    public float getRGB_Black() {
+        return RGB_black;
     }
 
     public void setRGB_Target(float RGB_target) {
@@ -121,16 +126,15 @@ public class Course implements Measure {
         return RGB_target;
     }
 
-    public float getDivideRGB_Target() {
-        return RGB_target / divide;
-    }
-
     public boolean getTrueRGB_Blue() {
         if (color_B >= 150 || color_B <= 255) {
             return true;
         }
         return false;
     }
+    
+    
+   /////////////////////////////////////////////////////////
 
     public float getWhite() {
         return white;

@@ -11,9 +11,9 @@ import game.Game.STATUS;
 public class LogData {
     private STATUS status;
     private float RGB_brightness;
-    private float R;
-    private float G;
-    private float B;
+    private int R;
+    private int G;
+    private int B;
     private float forward;
     private float turn;
     private float leftSpeed;
@@ -21,7 +21,7 @@ public class LogData {
     private float color;
     private long time;
 
-    public LogData(long time, STATUS status, float RGB_brightness, float R, float G,float B ,float forward, float leftSpeed, float rightSpeed) {
+    public LogData(long time, STATUS status, float RGB_brightness, int R, int G,int B ,float forward, float leftSpeed, float rightSpeed) {
         this.time = time;
         this.status = status;
         this.RGB_brightness = RGB_brightness;
