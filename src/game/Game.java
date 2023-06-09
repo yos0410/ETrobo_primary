@@ -37,7 +37,7 @@ public class Game {
     RGB_PID rgb_PID;
 
     public enum STATUS {
-        CALIBRATION_WHITE, CALIBRATION_BLACK, WAITSTART, RUN, END, BLUE
+        CALIBRATION_WHITE, CALIBRATION_BLACK, WAITSTART, RUN, END, BLUE,BLUE2
     };
 
     STATUS status;
@@ -106,13 +106,18 @@ public class Game {
             course.update3();
             rgb_PID.run();
             wheel.control();
-//            if (course.getTrueRGB_Blue()) {
-//                status = STATUS.BLUE;
-//            }
+            if (course.getTrueRGB_Blue()) {
+                status = STATUS.BLUE;
+            }
             break;
         case BLUE:
-            status = STATUS.WAITSTART;
+            course.update3();
+//            wheel.stop();
+            rgb_PID.run();
+            wheel.control2();
             break;
+
+            
         default:
             break;
         }
