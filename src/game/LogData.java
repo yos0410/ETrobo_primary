@@ -10,7 +10,7 @@ import game.Game.STATUS;
  */
 public class LogData {
     private STATUS status;
-    private int RGB_brightness;
+    private float RGB_brightness;
     private int R;
     private int G;
     private int B;
@@ -21,7 +21,7 @@ public class LogData {
     private float color;
     private long time;
 
-    public LogData(long time, STATUS status, int RGB_brightness, int R, int G,int B ,float forward, float leftSpeed, float rightSpeed) {
+    public LogData(long time, STATUS status, float RGB_brightness, int R, int G,int B ,float forward, float leftSpeed, float rightSpeed) {
         this.time = time;
         this.status = status;
         this.RGB_brightness = RGB_brightness;
@@ -42,16 +42,16 @@ public class LogData {
         return status;
     }
 
-    public int RGB_brightness() {
+    public float RGB_brightness() {
         return RGB_brightness;
     }
-    public int getR() {
+    public float getR() {
         return R;
     }
-    public int getG() {
+    public float getG() {
         return G;
     }
-    public int getB() {
+    public float getB() {
         return B;
     }
 

@@ -7,19 +7,26 @@ public class RGB_PID {
     private Course course;
     private Wheel wheel;
 
+<<<<<<< HEAD
     private int forward = 200;// 前進速度
     private int Kp = 800;
     private int Ki = 0;
     private int Kd = 250;
+=======
+    private float forward = 200.0f;// 前進速度
+    private float Kp = 800.0f;
+    private float Ki = 20.0f;
+    private float Kd = 250.0f;
+>>>>>>> refs/remotes/origin/master
     // 安定走行 200 800 20 250
-    private int p;
+    private float p;
 
-    private int lasterr;
-    private int last2err;
+    private float lasterr;
+    private float last2err;
 
-    private int err;// 輝度値-目標輝度値
-    private int diff;// 微分値
-    private int integral;//
+    private float err;// 輝度値-目標輝度値
+    private float diff;// 微分値
+    private float integral;//
 
     public RGB_PID(Course course, Wheel wheel) {
         this.course = course;
@@ -31,9 +38,9 @@ public class RGB_PID {
      */
     public void run() {
         // 目標輝度値
-        int target = course.getRGB_Target();
+        float target = course.getDivideRGB_Target();
         // 現在の輝度値
-        int brightness = course.getRGB();
+        float brightness = course.getDivideRGB();
 
         // エラー値
         err = brightness - target;
