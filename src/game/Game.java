@@ -121,7 +121,7 @@ public class Game {
 
         case BLUE:
 
-            for (int i = 0; i < 1000; i++) {
+            for (int i = 0; i < 1001; i++) {
                 course.update3();
                 rgb_PID.Osoi_run();
                 wheel.control();
