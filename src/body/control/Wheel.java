@@ -1,6 +1,7 @@
 package body.control;
 
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
+import lejos.utility.Delay;
 
 /**
  * 車輪制御クラス
@@ -17,8 +18,8 @@ public class Wheel {
     private float rightSpeed;
 
     private float p;
-    private float R_EDGE = 1.0f;// 1=右 -1=左
-    private float L_EDGE = -1.0f;// 1=右 -1=左
+    private float EDGE = 1.0f;// 1=右 -1=左
+//    private float L_EDGE = -1.0f;// 1=右 -1=左
 
     public Wheel(EV3LargeRegulatedMotor leftMotor, EV3LargeRegulatedMotor rightMotor) {
         this.leftMotor = leftMotor;
@@ -30,8 +31,8 @@ public class Wheel {
      */
     public void control() {
         // ここ空欄
-        leftSpeed = forward - R_EDGE * p;
-        rightSpeed = forward + R_EDGE * p;
+        leftSpeed = forward - EDGE * p;
+        rightSpeed = forward + EDGE * p;
         leftMotor.setSpeed(leftSpeed);
         rightMotor.setSpeed(rightSpeed);
 
@@ -46,13 +47,23 @@ public class Wheel {
             rightMotor.backward();
         }
     }
+    
+    public void stop(){
+       
+            leftMotor.stop(true);
+            rightMotor.stop(true);
+            Delay.msDelay(500);
+            
+            
+        
+    }
     public void control2() {
         // ここ空欄
-        leftSpeed = forward - L_EDGE * p;
-        rightSpeed = forward + L_EDGE * p;
+        leftSpeed = forward + EDGE * p;
+        rightSpeed = forward - EDGE * p;
         leftMotor.setSpeed(leftSpeed);
         rightMotor.setSpeed(rightSpeed);
-        
+
         if (leftSpeed >= 0) {
             leftMotor.forward();
         } else {
@@ -63,11 +74,13 @@ public class Wheel {
         } else {
             rightMotor.backward();
         }
+//        Delay.msDelay(3000);
     }
 
     public void setForward(float forward) {
         this.forward = forward;
     }
+
     public void setPid(float p) {
         this.p = p;
     }
@@ -83,6 +96,5 @@ public class Wheel {
     public float getRightSpeed() {
         return rightSpeed;
     }
-
 
 }
