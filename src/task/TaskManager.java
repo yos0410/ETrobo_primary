@@ -5,9 +5,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-import lejos.hardware.lcd.LCD;
+
 import game.Game;
 import game.Log;
+import lejos.hardware.lcd.LCD;
 
 /**
  * タスク管理クラス
@@ -47,6 +48,7 @@ public class TaskManager {
      */
 
     public void schedule() {// RateからDelayに変更した
+
         futureGame = scheduler.scheduleWithFixedDelay(gameTask, 0, 10, TimeUnit.MILLISECONDS);
         futureLog = scheduler.scheduleWithFixedDelay(logTask, 0, 1000, TimeUnit.MILLISECONDS);
     }
