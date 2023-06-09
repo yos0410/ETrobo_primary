@@ -1,9 +1,9 @@
 package game;
 
-import body.control.*;
+import body.control.RGB_Wheel;
+import body.control.Wheel;
 import body.measure.Course;
 import body.measure.Touch;
-import game.Game.STATUS;
 import game.run.PID;
 import game.run.RGB_PID;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
@@ -37,7 +37,7 @@ public class Game {
     RGB_PID rgb_PID;
 
     public enum STATUS {
-        CALIBRATION_WHITE, CALIBRATION_BLACK, WAITSTART, RUN, END, BLUE,BLUE2
+        CALIBRATION_WHITE, CALIBRATION_BLACK, WAITSTART, RUN, RUN_rightedge, RUN_leftedge, END, BLUE, BLUE2
     };
 
     STATUS status;
@@ -99,10 +99,10 @@ public class Game {
             if (touch.isUpped()) {
                 Beep.ring();
                 Log.time();
-                status = STATUS.RUN;
+                status = STATUS.RUN_rightedge;
             }
             break;
-        case RUN:
+        case RUN_rightedge:
             course.update3();
             rgb_PID.run();
             wheel.control();
@@ -110,14 +110,30 @@ public class Game {
                 status = STATUS.BLUE;
             }
             break;
-        case BLUE:
+        case RUN_leftedge:
             course.update3();
-//            wheel.stop();
             rgb_PID.run();
             wheel.control2();
+            if (course.getTrueRGB_Blue()) {
+                status = STATUS.BLUE;
+            }
             break;
 
-            
+        case BLUE:
+
+            for (int i = 0; i < 500; i++) {
+                course.update3();
+                rgb_PID.Osoi_run();
+                wheel.control();
+            }
+            wheel.stop();
+            for (int j = 0; j < 3; j++) {
+                leftMotor.setSpeed(-50);
+                rightMotor.setSpeed(50);
+            }
+            status = STATUS.RUN_leftedge;
+            break;
+
         default:
             break;
         }
