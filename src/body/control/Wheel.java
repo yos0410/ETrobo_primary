@@ -19,7 +19,7 @@ public class Wheel {
 
     private float p;
     private float EDGE = 1.0f;// 1=âE -1=ç∂
-//    private float L_EDGE = -1.0f;// 1=âE -1=ç∂
+    // private float L_EDGE = -1.0f;// 1=âE -1=ç∂
 
     public Wheel(EV3LargeRegulatedMotor leftMotor, EV3LargeRegulatedMotor rightMotor) {
         this.leftMotor = leftMotor;
@@ -47,16 +47,15 @@ public class Wheel {
             rightMotor.backward();
         }
     }
-    
-    public void stop(){
-       
-            leftMotor.stop(true);
-            rightMotor.stop(true);
-            Delay.msDelay(500);
-            
-            
-        
+
+    public void stop() {
+
+        leftMotor.stop(true);
+        rightMotor.stop(true);
+        Delay.msDelay(1000);
+
     }
+
     public void control2() {
         // Ç±Ç±ãÛóì
         leftSpeed = forward + EDGE * p;
@@ -74,7 +73,7 @@ public class Wheel {
         } else {
             rightMotor.backward();
         }
-//        Delay.msDelay(3000);
+        // Delay.msDelay(3000);
     }
 
     public void setForward(float forward) {
