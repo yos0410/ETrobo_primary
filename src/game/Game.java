@@ -37,7 +37,7 @@ public class Game {
     RGB_PID rgb_PID;
 
     public enum STATUS {
-        CALIBRATION_WHITE, CALIBRATION_BLACK, WAITSTART, RUN, END, BLUE,BLUE2
+        CALIBRATION_WHITE, CALIBRATION_BLACK, WAITSTART, RUN, END, BLUE, RUN_rightedge, RUN_leftedge
     };
 
     STATUS status;
@@ -99,10 +99,10 @@ public class Game {
             if (touch.isUpped()) {
                 Beep.ring();
                 Log.time();
-                status = STATUS.RUN;
+                status = STATUS.RUN_rightedge;
             }
             break;
-        case RUN:
+        case RUN_rightedge:
             course.update3();
             rgb_PID.run();
             wheel.control();
@@ -110,14 +110,20 @@ public class Game {
                 status = STATUS.BLUE;
             }
             break;
+            
         case BLUE:
             course.update3();
-//            wheel.stop();
-            rgb_PID.run();
-            wheel.control2();
+            wheel.stop();
+            status = STATUS.RUN_leftedge;
             break;
 
-            
+        case RUN_leftedge:
+            course.update3();
+            rgb_PID.run();
+            wheel.control2();
+
+            break;
+
         default:
             break;
         }
