@@ -1,6 +1,5 @@
 package game;
 
-import body.control.RGB_Wheel;
 import body.control.Wheel;
 import body.measure.Course;
 import body.measure.Touch;
@@ -32,12 +31,12 @@ public class Game {
     Touch touch;
     Course course;
     Wheel wheel;
-    RGB_Wheel rgb_wheel;
     PID pid;
     RGB_PID rgb_PID;
+    int B_count = 0;
 
     public enum STATUS {
-        CALIBRATION_WHITE, CALIBRATION_BLACK, WAITSTART, RUN, RUN_rightedge, RUN_leftedge, END, BLUE, BLUE2
+        CALIBRATION_WHITE, CALIBRATION_BLACK, WAITSTART, RUN, R_RUN, L_RUN, END, BLUE,
     };
 
     STATUS status;
@@ -52,13 +51,13 @@ public class Game {
         this.wheel = new Wheel(leftMotor, rightMotor);
         this.pid = new PID(course, wheel);
         this.rgb_PID = new RGB_PID(course, wheel);
-        status = STATUS.CALIBRATION_WHITE;
+        status = STATUS.WAITSTART;
 
         // ’g‹@‰^“]
-        // for (int i = 0; i < 1500; i++) {
-        // course.update();
-        // wheel.control();
-        // }
+        for (int i = 0; i < 1500; i++) {
+            course.update();
+            wheel.control();
+        }
 
     }
 
@@ -75,7 +74,7 @@ public class Game {
         switch (status) {
         case CALIBRATION_WHITE:
             touch.update();
-            course.update3();
+            course.update();
             if (touch.isUpped()) {
                 course.setRGB_White(course.getRGB());
                 Beep.ring();
@@ -85,7 +84,7 @@ public class Game {
             break;
         case CALIBRATION_BLACK:
             touch.update();
-            course.update3();
+            course.update();
             if (touch.isUpped()) {
                 course.setRGB_Black(course.getRGB());
                 course.setRGB_Target((course.getRGB_White() + course.getRGB_Black()) / 2);
@@ -93,45 +92,56 @@ public class Game {
                 status = STATUS.WAITSTART;
             }
             break;
+
         case WAITSTART:
+            course.setRGB_White(course.getRGB_White());
+            course.setRGB_Black(course.getRGB_Black());
+            course.setRGB_Target(course.getRGB_Target());
+
             touch.update();
-            course.update3();
+            course.update();
+
             if (touch.isUpped()) {
+
                 Beep.ring();
                 Log.time();
-                status = STATUS.RUN_rightedge;
+                status = STATUS.R_RUN;
             }
             break;
-        case RUN_rightedge:
-            course.update3();
+
+        case R_RUN:
+            touch.update();
+            course.update();
             rgb_PID.run();
             wheel.control();
             if (course.getTrueRGB_Blue()) {
+                B_count++;
                 status = STATUS.BLUE;
             }
             break;
-        case RUN_leftedge:
-            course.update3();
+        case L_RUN:
+            touch.update();
+            course.update();
             rgb_PID.run();
             wheel.control2();
             if (course.getTrueRGB_Blue()) {
+                B_count++;
                 status = STATUS.BLUE;
             }
             break;
 
         case BLUE:
 
-            for (int i = 0; i < 1000; i++) {
-                course.update3();
-                rgb_PID.Osoi_run();
-                wheel.control();
+            if (B_count == 1) {
+                wheel.turn_left();
+                status = STATUS.L_RUN;
+            } else if (B_count == 2) {
+                wheel.turn_right();
+                status = STATUS.R_RUN;
+            } else {
+                status = STATUS.R_RUN;
             }
-            wheel.stop();
-            for (int j = 0; j < 3; j++) {
-                leftMotor.setSpeed(-50);
-                rightMotor.setSpeed(50);
-            }
-            status = STATUS.RUN_leftedge;
+
             break;
 
         default:
@@ -147,6 +157,10 @@ public class Game {
 
     public void countUp() {
         count++;
+    }
+
+    public int getB_count() {
+        return B_count;
     }
 
     public STATUS getStatus() {

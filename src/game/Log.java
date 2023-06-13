@@ -4,6 +4,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +56,9 @@ public class Log {
         case WAITSTART:
             dispWaitStart();
             break;
-        case RUN:
+        case BLUE:
+        case R_RUN:
+        case L_RUN:
             dispRun();
             break;
         default:
@@ -113,9 +117,9 @@ public class Log {
      * ’Ç‰Á‚·‚é
      */
     public void add() {
-        logList.add(new LogData(System.currentTimeMillis() - startTime, game.getStatus(),
-                game.course.getRGB(),game.course.getR(),game.course.getG(),game.course.getB(),game.wheel.getForward(), game.wheel.getLeftSpeed(),
-                game.wheel.getRightSpeed()));
+        logList.add(new LogData(System.currentTimeMillis() - startTime, game.getStatus(), game.course.getRGB(),
+                game.course.getR(), game.course.getG(), game.course.getB(), game.wheel.getForward(),
+                game.wheel.getLeftSpeed(), game.wheel.getRightSpeed()));
     }
 
     /**
@@ -155,7 +159,6 @@ public class Log {
                 sb.append(",");
                 sb.append("\r\n");
             }
-
             File file = new File("log.csv");
             FileWriter fw = new FileWriter(file);
             BufferedWriter bw = new BufferedWriter(fw);
