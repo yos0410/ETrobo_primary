@@ -12,12 +12,6 @@ public class RGB_PID {
     private float Ki = 20.0f;
     private float Kd = 250.0f;
     // 安定走行 200 800 20 250
-
-    private float Osoi_forward = 100.0f;// 前進速度
-    private float Osoi_Kp = 800.0f;
-    private float Osoi_Ki = 20.0f;
-    private float Osoi_Kd = 250.0f;
-
     private float p;
 
     private float lasterr;
@@ -62,30 +56,4 @@ public class RGB_PID {
         wheel.setPid(p);
     }
 
-    public void Osoi_run() {
-        // 目標輝度値
-        float target = course.getDivideRGB_Target();
-        // 現在の輝度値
-        float brightness = course.getDivideRGB();
-
-        // エラー値
-        err = brightness - target;
-
-        // 微分値の計算
-        diff = (err - lasterr) - (lasterr - last2err);
-
-        //
-        integral = err;
-
-        // pの計算
-        p = p + Osoi_Kp * (err - lasterr) + Osoi_Ki * integral + Osoi_Kd * diff;
-
-        // 前回を前々回に
-        last2err = lasterr;
-        // 今回を前回に
-        lasterr = err;
-        // 速度、操作量設定
-        wheel.setForward(Osoi_forward);
-        wheel.setPid(p);
-    }
 }

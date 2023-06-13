@@ -1,5 +1,6 @@
 package body.control;
 
+import game.Game;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.utility.Delay;
 
@@ -10,6 +11,7 @@ import lejos.utility.Delay;
  *
  */
 public class Wheel {
+    Game game;
     private EV3LargeRegulatedMotor leftMotor;
     private EV3LargeRegulatedMotor rightMotor;
 
@@ -18,7 +20,7 @@ public class Wheel {
     private float rightSpeed;
 
     private float p;
-    private float EDGE = 1.0f;// 1=âE -1=ç∂
+    public float EDGE = 1.0f;// 1=âE -1=ç∂
     // private float L_EDGE = -1.0f;// 1=âE -1=ç∂
 
     public Wheel(EV3LargeRegulatedMotor leftMotor, EV3LargeRegulatedMotor rightMotor) {
@@ -52,13 +54,13 @@ public class Wheel {
 
         leftMotor.stop(true);
         rightMotor.stop(true);
-        Delay.msDelay(1000);
+        
 
     }
 
     public void control2() {
         // Ç±Ç±ãÛóì
-        leftSpeed = forward + EDGE * p;
+        leftSpeed = forward + EDGE * p; 
         rightSpeed = forward - EDGE * p;
         leftMotor.setSpeed(leftSpeed);
         rightMotor.setSpeed(rightSpeed);
@@ -73,7 +75,21 @@ public class Wheel {
         } else {
             rightMotor.backward();
         }
-        // Delay.msDelay(3000);
+    }
+    
+    public void turn_left() {
+        leftMotor.setSpeed(190);
+        rightMotor.setSpeed(210);
+        leftMotor.forward();
+        rightMotor.forward();
+        Delay.msDelay(1000);
+    }
+    public void turn_right() {
+        leftMotor.setSpeed(240);
+        rightMotor.setSpeed(190);
+        leftMotor.forward();
+        rightMotor.forward();
+        Delay.msDelay(1000);
     }
 
     public void setForward(float forward) {
