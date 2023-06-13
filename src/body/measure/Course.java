@@ -37,10 +37,6 @@ public class Course implements Measure {
         sensorMode = colorSensor.getRGBMode();
         value = new float[sensorMode.sampleSize()];
 
-        // èâä˙íl
-        RGB_white = 1317140.0f;
-        RGB_black = 257.0f;
-        RGB_target = (RGB_white + RGB_black) / 2.0f;
     }
 
     /**

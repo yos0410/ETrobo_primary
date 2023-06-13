@@ -51,13 +51,13 @@ public class Game {
         this.wheel = new Wheel(leftMotor, rightMotor);
         this.pid = new PID(course, wheel);
         this.rgb_PID = new RGB_PID(course, wheel);
-        status = STATUS.WAITSTART;
+        status = STATUS.CALIBRATION_WHITE;
 
-        // ’g‹@‰^“]
-        for (int i = 0; i < 1500; i++) {
-            course.update();
-            wheel.control();
-        }
+         // ’g‹@‰^“]
+         for (int i = 0; i < 1500; i++) {
+         course.update();
+         wheel.control();
+         }
 
     }
 
@@ -94,9 +94,7 @@ public class Game {
             break;
 
         case WAITSTART:
-            course.setRGB_White(course.getRGB_White());
-            course.setRGB_Black(course.getRGB_Black());
-            course.setRGB_Target(course.getRGB_Target());
+
 
             touch.update();
             course.update();
