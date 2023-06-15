@@ -14,6 +14,7 @@ public class LogData {
     private int R;
     private int G;
     private int B;
+    private int colorID;
     private float forward;
     private float turn;
     private float leftSpeed;
@@ -21,7 +22,7 @@ public class LogData {
     private float color;
     private long time;
 
-    public LogData(long time, STATUS status, float RGB_brightness, int R, int G,int B ,float forward, float leftSpeed, float rightSpeed) {
+    public LogData(long time, STATUS status, float RGB_brightness, int R, int G,int B ,float forward,int colorID, float leftSpeed, float rightSpeed) {
         this.time = time;
         this.status = status;
         this.RGB_brightness = RGB_brightness;
@@ -31,11 +32,15 @@ public class LogData {
         this.forward = forward;
         this.leftSpeed = leftSpeed;
         this.rightSpeed = rightSpeed;
+        this.colorID= colorID;
 
     }
 
     public long getTime() {
         return time;
+    }
+    public int getcolorID() {
+        return colorID;
     }
 
     public STATUS getStatus() {

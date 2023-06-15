@@ -53,11 +53,11 @@ public class Game {
         this.rgb_PID = new RGB_PID(course, wheel);
         status = STATUS.CALIBRATION_WHITE;
 
-         // ’g‹@‰^“]
-         for (int i = 0; i < 1500; i++) {
-         course.update();
-         wheel.control();
-         }
+        // // ’g‹@‰^“]
+        // for (int i = 0; i < 1500; i++) {
+        // course.update();
+        // wheel.control();
+        // }
 
     }
 
@@ -112,7 +112,7 @@ public class Game {
             course.update();
             rgb_PID.run();
             wheel.control();
-            if (course.getTrueRGB_Blue()) {
+            if (course.getcolorID() == 2) {
                 B_count++;
                 status = STATUS.BLUE;
             }
@@ -122,7 +122,7 @@ public class Game {
             course.update();
             rgb_PID.run();
             wheel.control2();
-            if (course.getTrueRGB_Blue()) {
+            if (course.getcolorID() == 2) {
                 B_count++;
                 status = STATUS.BLUE;
             }
