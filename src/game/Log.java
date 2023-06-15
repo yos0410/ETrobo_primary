@@ -4,13 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import lejos.hardware.lcd.LCD;
@@ -122,7 +116,7 @@ public class Log {
      */
     public void add() {
         logList.add(new LogData(System.currentTimeMillis() - startTime, game.getStatus(), game.course.getRGB(),
-                game.course.getR(), game.course.getG(), game.course.getB(), game.wheel.getForward(),
+                game.course.getR(), game.course.getG(), game.course.getB(), game.wheel.getForward(),game.course.getcolorID(),
                 game.wheel.getLeftSpeed(), game.wheel.getRightSpeed()));
     }
 
@@ -141,7 +135,7 @@ public class Log {
             sb.append(Float.toString(game.course.getRGB_Target()));
             sb.append("\r\n\r\n");
             // ÉåÉRÅ[Éhïî
-            sb.append("time,status,RGB,R,G,B,forward,leftspeed,rightspeed\r\n");
+            sb.append("time,status,RGB,R,G,B,colorID,forward,leftspeed,rightspeed\r\n");
             for (LogData data : logList) {
                 sb.append(Long.toString(data.getTime()));
                 sb.append(",");
@@ -154,6 +148,8 @@ public class Log {
                 sb.append(Float.toString(data.getG()));
                 sb.append(",");
                 sb.append(Float.toString(data.getB()));
+                sb.append(",");
+                sb.append(Integer.toString(data.getcolorID()));
                 sb.append(",");
                 sb.append(Float.toString(data.getForward()));
                 sb.append(",");

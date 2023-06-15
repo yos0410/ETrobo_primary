@@ -13,14 +13,12 @@ public class Course implements Measure {
     private EV3ColorSensor colorSensor;
 
     private SensorMode sensorMode;
+    private SensorMode sensorMode2;
 
     private float value[];
+    private float value2[];
 
-    private float white;
-    private float black;
-    private float target;
-    private float brightness;
-    private float color;
+    private int colorID;
 
     private int color_R;
     private int color_G;
@@ -37,6 +35,9 @@ public class Course implements Measure {
         sensorMode = colorSensor.getRGBMode();
         value = new float[sensorMode.sampleSize()];
 
+        sensorMode2 = colorSensor.getColorIDMode();
+        value2 = new float[sensorMode2.sampleSize()];
+
     }
 
     /**
@@ -50,6 +51,12 @@ public class Course implements Measure {
         color_B = (int) (value[2] * 255);
         RGB = ((color_R << 16) & 0xFF0000) | ((color_G << 8) & 0xFF00) | (color_B & 0xFF);
 
+        sensorMode2.fetchSample(value2, 0);
+        colorID = (int) (value2[0]);
+    }
+
+    public int getcolorID() {
+        return colorID;
     }
 
     public float getDivideRGB() {
@@ -110,46 +117,4 @@ public class Course implements Measure {
         }
         return false;
     }
-
-    /////////////////////////////////////////////////////////
-
-    public float getWhite() {
-        return white;
-    }
-
-    public void setWhite(float white) {
-        this.white = white;
-    }
-
-    public float getBlack() {
-        return black;
-    }
-
-    public void setBlack(float black) {
-        this.black = black;
-    }
-
-    public float getTarget() {
-        return target;
-    }
-
-    public void setTarget(float target) {
-        this.target = target;
-    }
-
-    public float getBrightness() {
-        return brightness;
-    }
-
-    public float getColor() {
-        return color;
-    }
-
-    public boolean getTrueBlue() {
-        if (color == 2) {
-            return true;
-        }
-        return false;
-    }
-
 }
