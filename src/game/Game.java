@@ -130,21 +130,10 @@ public class Game {
 
         case BLUE:
 
-<<<<<<< HEAD
             for (int i = 0; i < 1001; i++) {
                 course.update3();
                 rgb_PID.Osoi_run();
                 wheel.control();
-=======
-            if (B_count == 1) {
-                wheel.turn_left();
-                status = STATUS.L_RUN;
-            } else if (B_count == 2) {
-                wheel.turn_right();
-                status = STATUS.R_RUN;
-            } else {
-                status = STATUS.R_RUN;
->>>>>>> refs/remotes/origin/master
             }
 
             break;
