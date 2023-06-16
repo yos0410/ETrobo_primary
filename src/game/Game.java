@@ -3,7 +3,7 @@ package game;
 import body.control.Wheel;
 import body.measure.Course;
 import body.measure.Touch;
-import game.run.PID;
+//import game.run.PID;
 import game.run.RGB_PID;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.MotorPort;
@@ -31,7 +31,7 @@ public class Game {
     Touch touch;
     Course course;
     Wheel wheel;
-    PID pid;
+    // PID pid;
     RGB_PID rgb_PID;
     int B_count = 0;
 
@@ -49,7 +49,7 @@ public class Game {
         this.touch = new Touch(touchSensor);
         this.course = new Course(colorSensor);
         this.wheel = new Wheel(leftMotor, rightMotor);
-        this.pid = new PID(course, wheel);
+        // this.pid = new PID(course, wheel);
         this.rgb_PID = new RGB_PID(course, wheel);
         status = STATUS.CALIBRATION_WHITE;
 
@@ -95,7 +95,6 @@ public class Game {
 
         case WAITSTART:
 
-
             touch.update();
             course.update();
 
@@ -103,7 +102,7 @@ public class Game {
 
                 Beep.ring();
                 Log.time();
-                status = STATUS.R_RUN;
+                status = STATUS.L_RUN;
             }
             break;
 
@@ -129,13 +128,26 @@ public class Game {
             break;
 
         case BLUE:
+            // wheel.turn_left();
+            // status = STATUS.L_RUN;
 
             if (B_count == 1) {
-                wheel.turn_left();
-                status = STATUS.L_RUN;
+                course.update();
+                rgb_PID.run();
+                wheel.control2();
+                if (course.getcolorID() == -1) {
+                    wheel.turn_right();
+                    status = STATUS.R_RUN;
+                }
             } else if (B_count == 2) {
-                wheel.turn_right();
-                status = STATUS.R_RUN;
+                course.update();
+                rgb_PID.run();
+                wheel.control();
+                if (course.getcolorID() == -1) {
+                    wheel.turn_left();
+                    status = STATUS.L_RUN;
+                }
+                
             } else {
                 status = STATUS.R_RUN;
             }

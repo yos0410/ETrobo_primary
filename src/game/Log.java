@@ -26,14 +26,14 @@ public class Log {
     private Game game;
 
     private static List<LogData> logList = new ArrayList<LogData>();
-
+    
     private Log() {
     }
-
+    
     public static void time() {
         startTime = System.currentTimeMillis();
     }
-
+    
     public static Log getInstance() {
         return instance;
     }

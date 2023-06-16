@@ -85,7 +85,7 @@ public class Wheel {
         Delay.msDelay(1000);
     }
     public void turn_right() {
-        leftMotor.setSpeed(240);
+        leftMotor.setSpeed(230);
         rightMotor.setSpeed(190);
         leftMotor.forward();
         rightMotor.forward();
