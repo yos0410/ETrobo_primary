@@ -11,18 +11,14 @@ import lejos.hardware.sensor.SensorMode;
  */
 public class Course implements Measure {
     private EV3ColorSensor colorSensor;
+
     private SensorMode sensorMode;
     private SensorMode sensorMode2;
-    private SensorMode sensorMode3;
+
     private float value[];
     private float value2[];
-    private float value3[];
 
-    private float white;
-    private float black;
-    private float target;
-    private float brightness;
-    private float color;
+    private int colorID;
 
     private int color_R;
     private int color_G;
@@ -35,23 +31,13 @@ public class Course implements Measure {
     int divite = 10000000;
 
     public Course(EV3ColorSensor colorSensor) {
-        Course3(colorSensor);
-
-        white = 0.4f;
-        black = 0.0f;
-        target = (white + black) / 2.0f;
-    }
-
-    public void Course2(EV3ColorSensor colorSensor) {
         this.colorSensor = colorSensor;
+        sensorMode = colorSensor.getRGBMode();
+        value = new float[sensorMode.sampleSize()];
+
         sensorMode2 = colorSensor.getColorIDMode();
         value2 = new float[sensorMode2.sampleSize()];
-    }
 
-    public void Course3(EV3ColorSensor colorSensor) {
-        this.colorSensor = colorSensor;
-        sensorMode3 = colorSensor.getRGBMode();
-        value3 = new float[sensorMode3.sampleSize()];
     }
 
     /**
@@ -59,23 +45,18 @@ public class Course implements Measure {
      */
     @Override
     public void update() {
-        // ‚±‚±‹ó—“
         sensorMode.fetchSample(value, 0);
-        brightness = value[0];
-
-    }
-
-    public void update2() {
-        sensorMode2.fetchSample(value2, 0);
-        color = value2[0];
-    }
-
-    public void update3() {
-        sensorMode3.fetchSample(value3, 0);
-        color_R = (int) (value3[0] * 255);
-        color_G = (int) (value3[1] * 255);
-        color_B = (int) (value3[2] * 255);
+        color_R = (int) (value[0] * 255);
+        color_G = (int) (value[1] * 255);
+        color_B = (int) (value[2] * 255);
         RGB = ((color_R << 16) & 0xFF0000) | ((color_G << 8) & 0xFF00) | (color_B & 0xFF);
+
+        sensorMode2.fetchSample(value2, 0);
+        colorID = (int) (value2[0]);
+    }
+
+    public int getcolorID() {
+        return colorID;
     }
 
     public float getDivideRGB() {
@@ -129,51 +110,11 @@ public class Course implements Measure {
     public boolean getTrueRGB_Blue() {
         // color_B >= 10 && color_R <= 6
         // color_B >= 9 && color_G <= 13 && color_R <=7
+        // color_R >= 10 && color_R <= 11 && color_G >= 16 && color_G <= 17 &&
+        // color_B >= 16 ‚¢‚¯‚é‚â‚Â
         if (color_R >= 10 && color_R <= 11 && color_G >= 16 && color_G <= 17 && color_B >= 16) {
             return true;
         }
         return false;
     }
-
-    /////////////////////////////////////////////////////////
-
-    public float getWhite() {
-        return white;
-    }
-
-    public void setWhite(float white) {
-        this.white = white;
-    }
-
-    public float getBlack() {
-        return black;
-    }
-
-    public void setBlack(float black) {
-        this.black = black;
-    }
-
-    public float getTarget() {
-        return target;
-    }
-
-    public void setTarget(float target) {
-        this.target = target;
-    }
-
-    public float getBrightness() {
-        return brightness;
-    }
-
-    public float getColor() {
-        return color;
-    }
-
-    public boolean getTrueBlue() {
-        if (color == 2) {
-            return true;
-        }
-        return false;
-    }
-
 }
