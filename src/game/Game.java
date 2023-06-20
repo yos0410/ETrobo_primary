@@ -14,13 +14,13 @@ import lejos.utility.Delay;
 import task.Beep;
 
 /**
- * 競技クラス インスタンスを単一にするため、Singleton パターンを採用
+ * 遶ｶ謚繧ｯ繝ｩ繧ｹ 繧､繝ｳ繧ｹ繧ｿ繝ｳ繧ｹ繧貞腰荳縺ｫ縺吶ｋ縺溘ａ縲ヾingleton 繝代ち繝ｼ繝ｳ繧呈治逕ｨ
  * 
  * @author
  *
  */
 public class Game {
-    // タスクの呼び出し回数
+    // 繧ｿ繧ｹ繧ｯ縺ｮ蜻ｼ縺ｳ蜃ｺ縺怜屓謨ｰ
     private int count;
 
     private static Game instance = new Game();
@@ -54,7 +54,7 @@ public class Game {
         this.rgb_PID = new RGB_PID(course, wheel);
         status = STATUS.CALIBRATION_WHITE;
 
-        // // 暖機運転
+        // // 證匁ｩ滄°霆｢
         // for (int i = 0; i < 1500; i++) {
         // course.update();
         // wheel.control();
@@ -67,9 +67,9 @@ public class Game {
     }
 
     /**
-     * 実施する
+     * 螳滓命縺吶ｋ
      * 
-     * @return 実施中は false、終了時は true を返す
+     * @return 螳滓命荳ｭ縺ｯ false縲∫ｵゆｺ�譎ゅ�ｯ true 繧定ｿ斐☆
      */
     public boolean run() {
         switch (status) {
@@ -204,6 +204,7 @@ public class Game {
                 rightMotor.forward();
                 Delay.msDelay(500);
                 status = STATUS.R_RUN;
+
             }
 
             break;
