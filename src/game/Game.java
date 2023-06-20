@@ -10,6 +10,7 @@ import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.EV3TouchSensor;
+import lejos.utility.Delay;
 import task.Beep;
 
 /**
@@ -36,7 +37,7 @@ public class Game {
     int B_count = 0;
 
     public enum STATUS {
-        CALIBRATION_WHITE, CALIBRATION_BLACK, WAITSTART, RUN, R_RUN, L_RUN, END, BLUE,
+        CALIBRATION_WHITE, CALIBRATION_BLACK, WAITSTART, RUN, R_RUN, L_RUN, END, BLUE, GETLOG
     };
 
     STATUS status;
@@ -92,7 +93,10 @@ public class Game {
                 status = STATUS.WAITSTART;
             }
             break;
-
+        case GETLOG:
+            touch.update();
+            course.update();
+            break;
         case WAITSTART:
 
             touch.update();
@@ -128,27 +132,77 @@ public class Game {
             break;
 
         case BLUE:
-            // wheel.turn_left();
+            // course.update();
+            // rgb_PID.run();
+            // wheel.control();
+            // if (course.getcolorID() == 7) {
             // status = STATUS.L_RUN;
+            // }
 
             if (B_count == 1) {
-                course.update();
-                rgb_PID.run();
-                wheel.control2();
-                if (course.getcolorID() == -1) {
-                    wheel.turn_right();
-                    status = STATUS.R_RUN;
-                }
+                leftMotor.setSpeed(270);
+                rightMotor.setSpeed(120);
+                leftMotor.forward();
+                rightMotor.forward();
+                Delay.msDelay(700);
+                status = STATUS.R_RUN;
+                // course.update();
+                // rgb_PID.run();
+                // wheel.control2();
+                // // course.hsv_H() <=155
+                // if (course.getcolorID() == -1) {
+                // leftMotor.setSpeed(230);
+                // rightMotor.setSpeed(160);
+                // leftMotor.forward();
+                // rightMotor.forward();
+                // Delay.msDelay(500);
+                // status = STATUS.R_RUN;
+                // }
             } else if (B_count == 2) {
-                course.update();
-                rgb_PID.run();
-                wheel.control();
-                if (course.getcolorID() == -1) {
-                    wheel.turn_left();
-                    status = STATUS.L_RUN;
-                }
-                
+                leftMotor.setSpeed(220);
+                rightMotor.setSpeed(150);
+                leftMotor.forward();
+                rightMotor.forward();
+                Delay.msDelay(800);
+                status = STATUS.L_RUN;
+                // course.update();
+                // rgb_PID.run();
+                // wheel.control();
+                // // course.hsv_H() <=195
+                // if (course.getcolorID() == -1) {
+                // leftMotor.setSpeed(160);
+                // rightMotor.setSpeed(230);
+                // leftMotor.forward();
+                // rightMotor.forward();
+                // Delay.msDelay(500);
+                // status = STATUS.L_RUN;
+                // }
+                 
+            } else if (B_count == 3) {
+                leftMotor.setSpeed(165);
+                rightMotor.setSpeed(220);
+                leftMotor.forward();
+                rightMotor.forward();
+                Delay.msDelay(1500);
+                status = STATUS.L_RUN;
+                // course.update();
+                // rgb_PID.run();
+                // wheel.control2();
+                // // course.hsv_H() <=140
+                // if (course.getcolorID() == -1) {
+                // leftMotor.setSpeed(200);
+                // rightMotor.setSpeed(190);
+                // leftMotor.forward();
+                // rightMotor.forward();
+                // Delay.msDelay(700);
+                // status = STATUS.L_RUN;
+                // }
             } else {
+                leftMotor.setSpeed(230);
+                rightMotor.setSpeed(160);
+                leftMotor.forward();
+                rightMotor.forward();
+                Delay.msDelay(500);
                 status = STATUS.R_RUN;
             }
 

@@ -117,7 +117,7 @@ public class Log {
     public void add() {
         logList.add(new LogData(System.currentTimeMillis() - startTime, game.getStatus(), game.course.getRGB(),
                 game.course.getR(), game.course.getG(), game.course.getB(), game.wheel.getForward(),game.course.getcolorID(),
-                game.wheel.getLeftSpeed(), game.wheel.getRightSpeed()));
+                game.wheel.getLeftSpeed(), game.wheel.getRightSpeed() ,game.course.hsv_H(),game.course.getS(),game.course.getV()));
     }
 
     /**
@@ -135,7 +135,7 @@ public class Log {
             sb.append(Float.toString(game.course.getRGB_Target()));
             sb.append("\r\n\r\n");
             // ÉåÉRÅ[Éhïî
-            sb.append("time,status,RGB,R,G,B,colorID,forward,leftspeed,rightspeed\r\n");
+            sb.append("time,status,RGB,R,G,B,H,S,V,colorID,forward,leftspeed,rightspeed\r\n");
             for (LogData data : logList) {
                 sb.append(Long.toString(data.getTime()));
                 sb.append(",");
@@ -148,6 +148,12 @@ public class Log {
                 sb.append(Float.toString(data.getG()));
                 sb.append(",");
                 sb.append(Float.toString(data.getB()));
+                sb.append(",");
+                sb.append(Float.toString(data.getHsv_h()));
+                sb.append(",");
+                sb.append(Float.toString(data.getHsv_s()));
+                sb.append(",");
+                sb.append(Float.toString(data.getHsv_v()));
                 sb.append(",");
                 sb.append(Integer.toString(data.getcolorID()));
                 sb.append(",");
