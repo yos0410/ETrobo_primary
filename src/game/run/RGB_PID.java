@@ -8,11 +8,9 @@ public class RGB_PID {
     private Wheel wheel;
 
     private float forward = 220.0f;// 前進速度
-//    1200.0f;
-//    250.0f;
-    private float Kp = 1200.0f; 
-    private float Ki = 0.1f;
-    private float Kd = 250.0f; 
+    private float Kp = 1200.0f;
+    private float Ki = 1.0f;
+    private float Kd = 250.0f;
     // 安定走行 200 800 20 250
     private float p;
 

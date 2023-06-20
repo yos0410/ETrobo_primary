@@ -14,13 +14,13 @@ import lejos.utility.Delay;
 import task.Beep;
 
 /**
- * 遶ｶ謚繧ｯ繝ｩ繧ｹ 繧､繝ｳ繧ｹ繧ｿ繝ｳ繧ｹ繧貞腰荳縺ｫ縺吶ｋ縺溘ａ縲ヾingleton 繝代ち繝ｼ繝ｳ繧呈治逕ｨ
+ * 競技クラス インスタンスを単一にするため、Singleton パターンを採用
  * 
  * @author
  *
  */
 public class Game {
-    // 繧ｿ繧ｹ繧ｯ縺ｮ蜻ｼ縺ｳ蜃ｺ縺怜屓謨ｰ
+    // タスクの呼び出し回数
     private int count;
 
     private static Game instance = new Game();
@@ -54,7 +54,7 @@ public class Game {
         this.rgb_PID = new RGB_PID(course, wheel);
         status = STATUS.CALIBRATION_WHITE;
 
-        // // 證匁ｩ滄°霆｢
+        // // 暖機運転
         // for (int i = 0; i < 1500; i++) {
         // course.update();
         // wheel.control();
@@ -67,9 +67,9 @@ public class Game {
     }
 
     /**
-     * 螳滓命縺吶ｋ
+     * 実施する
      * 
-     * @return 螳滓命荳ｭ縺ｯ false縲∫ｵゆｺ�譎ゅ�ｯ true 繧定ｿ斐☆
+     * @return 実施中は false、終了時は true を返す
      */
     public boolean run() {
         switch (status) {
@@ -163,7 +163,7 @@ public class Game {
                 rightMotor.setSpeed(150);
                 leftMotor.forward();
                 rightMotor.forward();
-                Delay.msDelay(500);
+                Delay.msDelay(800);
                 status = STATUS.L_RUN;
                 // course.update();
                 // rgb_PID.run();
@@ -179,11 +179,11 @@ public class Game {
                 // }
                  
             } else if (B_count == 3) {
-                leftMotor.setSpeed(180);
+                leftMotor.setSpeed(165);
                 rightMotor.setSpeed(220);
                 leftMotor.forward();
                 rightMotor.forward();
-                Delay.msDelay(2000);
+                Delay.msDelay(1500);
                 status = STATUS.L_RUN;
                 // course.update();
                 // rgb_PID.run();
@@ -204,7 +204,6 @@ public class Game {
                 rightMotor.forward();
                 Delay.msDelay(500);
                 status = STATUS.R_RUN;
-
             }
 
             break;
