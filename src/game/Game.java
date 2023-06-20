@@ -163,7 +163,7 @@ public class Game {
                 rightMotor.setSpeed(150);
                 leftMotor.forward();
                 rightMotor.forward();
-                Delay.msDelay(800);
+                Delay.msDelay(500);
                 status = STATUS.L_RUN;
                 // course.update();
                 // rgb_PID.run();
@@ -179,11 +179,11 @@ public class Game {
                 // }
                  
             } else if (B_count == 3) {
-                leftMotor.setSpeed(165);
+                leftMotor.setSpeed(180);
                 rightMotor.setSpeed(220);
                 leftMotor.forward();
                 rightMotor.forward();
-                Delay.msDelay(1500);
+                Delay.msDelay(2000);
                 status = STATUS.L_RUN;
                 // course.update();
                 // rgb_PID.run();
