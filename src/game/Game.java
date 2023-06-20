@@ -3,23 +3,24 @@ package game;
 import body.control.Wheel;
 import body.measure.Course;
 import body.measure.Touch;
-import game.run.PID;
+//import game.run.PID;
 import game.run.RGB_PID;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.EV3TouchSensor;
+import lejos.utility.Delay;
 import task.Beep;
 
 /**
- * 競技クラス インスタンスを単一にするため、Singleton パターンを採用
+ * 遶ｶ謚繧ｯ繝ｩ繧ｹ 繧､繝ｳ繧ｹ繧ｿ繝ｳ繧ｹ繧貞腰荳縺ｫ縺吶ｋ縺溘ａ縲ヾingleton 繝代ち繝ｼ繝ｳ繧呈治逕ｨ
  * 
  * @author
  *
  */
 public class Game {
-    // タスクの呼び出し回数
+    // 繧ｿ繧ｹ繧ｯ縺ｮ蜻ｼ縺ｳ蜃ｺ縺怜屓謨ｰ
     private int count;
 
     private static Game instance = new Game();
@@ -31,12 +32,12 @@ public class Game {
     Touch touch;
     Course course;
     Wheel wheel;
-    PID pid;
+    // PID pid;
     RGB_PID rgb_PID;
     int B_count = 0;
 
     public enum STATUS {
-        CALIBRATION_WHITE, CALIBRATION_BLACK, WAITSTART, RUN, R_RUN, L_RUN, END, BLUE,
+        CALIBRATION_WHITE, CALIBRATION_BLACK, WAITSTART, RUN, R_RUN, L_RUN, END, BLUE, GETLOG
     };
 
     STATUS status;
@@ -49,11 +50,11 @@ public class Game {
         this.touch = new Touch(touchSensor);
         this.course = new Course(colorSensor);
         this.wheel = new Wheel(leftMotor, rightMotor);
-        this.pid = new PID(course, wheel);
+        // this.pid = new PID(course, wheel);
         this.rgb_PID = new RGB_PID(course, wheel);
         status = STATUS.CALIBRATION_WHITE;
 
-        // // 暖機運転
+        // // 證匁ｩ滄°霆｢
         // for (int i = 0; i < 1500; i++) {
         // course.update();
         // wheel.control();
@@ -66,9 +67,9 @@ public class Game {
     }
 
     /**
-     * 実施する
+     * 螳滓命縺吶ｋ
      * 
-     * @return 実施中は false、終了時は true を返す
+     * @return 螳滓命荳ｭ縺ｯ false縲∫ｵゆｺ�譎ゅ�ｯ true 繧定ｿ斐☆
      */
     public boolean run() {
         switch (status) {
@@ -92,9 +93,11 @@ public class Game {
                 status = STATUS.WAITSTART;
             }
             break;
-
+        case GETLOG:
+            touch.update();
+            course.update();
+            break;
         case WAITSTART:
-
 
             touch.update();
             course.update();
@@ -103,7 +106,7 @@ public class Game {
 
                 Beep.ring();
                 Log.time();
-                status = STATUS.R_RUN;
+                status = STATUS.L_RUN;
             }
             break;
 
@@ -129,11 +132,79 @@ public class Game {
             break;
 
         case BLUE:
+            // course.update();
+            // rgb_PID.run();
+            // wheel.control();
+            // if (course.getcolorID() == 7) {
+            // status = STATUS.L_RUN;
+            // }
 
-            for (int i = 0; i < 1001; i++) {
-                course.update3();
-                rgb_PID.Osoi_run();
-                wheel.control();
+            if (B_count == 1) {
+                leftMotor.setSpeed(270);
+                rightMotor.setSpeed(120);
+                leftMotor.forward();
+                rightMotor.forward();
+                Delay.msDelay(700);
+                status = STATUS.R_RUN;
+                // course.update();
+                // rgb_PID.run();
+                // wheel.control2();
+                // // course.hsv_H() <=155
+                // if (course.getcolorID() == -1) {
+                // leftMotor.setSpeed(230);
+                // rightMotor.setSpeed(160);
+                // leftMotor.forward();
+                // rightMotor.forward();
+                // Delay.msDelay(500);
+                // status = STATUS.R_RUN;
+                // }
+            } else if (B_count == 2) {
+                leftMotor.setSpeed(220);
+                rightMotor.setSpeed(150);
+                leftMotor.forward();
+                rightMotor.forward();
+                Delay.msDelay(800);
+                status = STATUS.L_RUN;
+                // course.update();
+                // rgb_PID.run();
+                // wheel.control();
+                // // course.hsv_H() <=195
+                // if (course.getcolorID() == -1) {
+                // leftMotor.setSpeed(160);
+                // rightMotor.setSpeed(230);
+                // leftMotor.forward();
+                // rightMotor.forward();
+                // Delay.msDelay(500);
+                // status = STATUS.L_RUN;
+                // }
+                 
+            } else if (B_count == 3) {
+                leftMotor.setSpeed(165);
+                rightMotor.setSpeed(220);
+                leftMotor.forward();
+                rightMotor.forward();
+                Delay.msDelay(1500);
+                status = STATUS.L_RUN;
+                // course.update();
+                // rgb_PID.run();
+                // wheel.control2();
+                // // course.hsv_H() <=140
+                // if (course.getcolorID() == -1) {
+                // leftMotor.setSpeed(200);
+                // rightMotor.setSpeed(190);
+                // leftMotor.forward();
+                // rightMotor.forward();
+                // Delay.msDelay(700);
+                // status = STATUS.L_RUN;
+                // }
+            } else {
+                leftMotor.setSpeed(230);
+                rightMotor.setSpeed(160);
+                leftMotor.forward();
+                rightMotor.forward();
+                Delay.msDelay(500);
+                status = STATUS.R_RUN;
+
             }
 
             break;

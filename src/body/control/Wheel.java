@@ -82,14 +82,14 @@ public class Wheel {
         rightMotor.setSpeed(210);
         leftMotor.forward();
         rightMotor.forward();
-        Delay.msDelay(1000);
+        Delay.msDelay(500);
     }
     public void turn_right() {
-        leftMotor.setSpeed(240);
-        rightMotor.setSpeed(190);
+        leftMotor.setSpeed(230);
+        rightMotor.setSpeed(160);
         leftMotor.forward();
         rightMotor.forward();
-        Delay.msDelay(1000);
+        Delay.msDelay(500);
     }
 
     public void setForward(float forward) {
