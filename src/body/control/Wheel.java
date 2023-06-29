@@ -31,7 +31,29 @@ public class Wheel {
     /**
      * §Œä‚·‚é
      */
-    public void control() {
+
+    public void Acceralation_control() {
+        // ‚±‚±‹ó—“
+        leftSpeed = forward + EDGE * p;
+        rightSpeed = forward - EDGE * p;
+        leftMotor.setSpeed(leftSpeed);
+        rightMotor.setSpeed(rightSpeed);
+
+        if (leftSpeed >= 0) {
+            leftMotor.forward();
+        } else {
+            leftMotor.backward();
+        }
+        if (rightSpeed >= 0) {
+            rightMotor.forward();
+        } else {
+            rightMotor.backward();
+        }
+        
+    }
+
+
+    public void R_control() {
         // ‚±‚±‹ó—“
         leftSpeed = forward - EDGE * p;
         rightSpeed = forward + EDGE * p;
@@ -48,19 +70,12 @@ public class Wheel {
         } else {
             rightMotor.backward();
         }
+       
     }
 
-    public void stop() {
-
-        leftMotor.stop(true);
-        rightMotor.stop(true);
-        
-
-    }
-
-    public void control2() {
+    public void L_control() {
         // ‚±‚±‹ó—“
-        leftSpeed = forward + EDGE * p; 
+        leftSpeed = forward + EDGE * p;
         rightSpeed = forward - EDGE * p;
         leftMotor.setSpeed(leftSpeed);
         rightMotor.setSpeed(rightSpeed);
@@ -76,20 +91,28 @@ public class Wheel {
             rightMotor.backward();
         }
     }
-    
+
     public void turn_left() {
         leftMotor.setSpeed(190);
-        rightMotor.setSpeed(210);
+        rightMotor.setSpeed(300);
         leftMotor.forward();
         rightMotor.forward();
-        Delay.msDelay(500);
+        Delay.msDelay(700);
     }
+
     public void turn_right() {
-        leftMotor.setSpeed(230);
-        rightMotor.setSpeed(160);
+        leftMotor.setSpeed(300);
+        rightMotor.setSpeed(190);
         leftMotor.forward();
         rightMotor.forward();
-        Delay.msDelay(500);
+        Delay.msDelay(700);
+    }
+
+    public void stop() {
+
+        leftMotor.stop(true);
+        rightMotor.stop(true);
+
     }
 
     public void setForward(float forward) {

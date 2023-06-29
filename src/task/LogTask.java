@@ -26,7 +26,8 @@ public class LogTask extends Thread {
     public void run() {
         log.countUp();
         log.disp();
-        if (game.getStatus() == STATUS.GETLOG ||game.getStatus() == STATUS.R_RUN || game.getStatus() == STATUS.L_RUN || game.getStatus() == STATUS.BLUE) {
+        if (game.getStatus() == STATUS.GETLOG ||game.getStatus() == STATUS.R_RUN || game.getStatus() == STATUS.L_RUN || game.getStatus() == STATUS.BLUE
+                || game.getStatus() == STATUS.ACCELERATION) {
             log.add();
         }
 
