@@ -113,8 +113,10 @@ public class Game {
                 status = STATUS.ACCELERATION;
             }
             break;
+            //加速する
         case ACCELERATION:
             if (A_count == 1) {
+                //forward=200の場合85回くらい回したらで4秒くらい
                 for (float i = 0; i <= 170; i++) {
                     touch.update();
                     course.update();
