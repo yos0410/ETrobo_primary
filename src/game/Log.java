@@ -57,6 +57,7 @@ public class Log {
         case BLUE:
         case R_RUN:
         case L_RUN:
+        case ACCELERATION:
             dispRun();
             break;
         default:

@@ -14,13 +14,13 @@ import lejos.utility.Delay;
 import task.Beep;
 
 /**
- * ‹£‹ZƒNƒ‰ƒX ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ’Pˆê‚É‚·‚é‚½‚ßASingleton ƒpƒ^[ƒ“‚ğÌ—p
+ * ç«¶æŠ€ã‚¯ãƒ©ã‚¹ ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å˜ä¸€ã«ã™ã‚‹ãŸã‚ã€Singleton ãƒ‘ã‚¿ãƒ¼ãƒ³ã‚’æ¡ç”¨
  * 
  * @author
  *
  */
 public class Game {
-    // ƒ^ƒXƒN‚ÌŒÄ‚Ño‚µ‰ñ”
+    // ã‚¿ã‚¹ã‚¯ã®å‘¼ã³å‡ºã—å›æ•°
     private int count;
 
     private static Game instance = new Game();
@@ -35,9 +35,12 @@ public class Game {
     // PID pid;
     RGB_PID rgb_PID;
     int B_count = 0;
+    int A_count = 0;
+    int R_count = 0;
+    int L_count = 0;
 
     public enum STATUS {
-        CALIBRATION_WHITE, CALIBRATION_BLACK, WAITSTART, RUN, R_RUN, L_RUN, END, BLUE, GETLOG
+        CALIBRATION_WHITE, CALIBRATION_BLACK, WAITSTART, RUN, R_RUN, Turn_R_RUN, L_RUN, END, BLUE, GETLOG, ACCELERATION
     };
 
     STATUS status;
@@ -54,7 +57,7 @@ public class Game {
         this.rgb_PID = new RGB_PID(course, wheel);
         status = STATUS.CALIBRATION_WHITE;
 
-        // ’g‹@‰^“]
+        // // æš–æ©Ÿé‹è»¢
         // for (int i = 0; i < 1500; i++) {
         // course.update();
         // wheel.control();
@@ -67,12 +70,16 @@ public class Game {
     }
 
     /**
-     * À{‚·‚é
+     * å®Ÿæ–½ã™ã‚‹
      * 
-     * @return À{’†‚Í falseAI—¹‚Í true ‚ğ•Ô‚·
+     * @return å®Ÿæ–½ä¸­ã¯ falseã€çµ‚äº†æ™‚ã¯ true ã‚’è¿”ã™
      */
     public boolean run() {
         switch (status) {
+        case GETLOG:
+            touch.update();
+            course.update();
+            break;
         case CALIBRATION_WHITE:
             touch.update();
             course.update();
@@ -93,10 +100,6 @@ public class Game {
                 status = STATUS.WAITSTART;
             }
             break;
-        case GETLOG:
-            touch.update();
-            course.update();
-            break;
         case WAITSTART:
 
             touch.update();
@@ -106,29 +109,82 @@ public class Game {
 
                 Beep.ring();
                 Log.time();
+                A_count++;
+                status = STATUS.ACCELERATION;
+            }
+            break;
+            //åŠ é€Ÿã™ã‚‹
+        case ACCELERATION:
+            if (A_count == 1) {
+                //forward=200ã®å ´åˆ85å›ãã‚‰ã„å›ã—ãŸã‚‰ã§4ç§’ãã‚‰ã„
+                for (float i = 0; i <= 170; i++) {
+                    touch.update();
+                    course.update();
+                    rgb_PID.acceralation_run();
+                    wheel.Acceralation_control();
+                }
+                L_count++;
+                status = STATUS.L_RUN;
+            } else if (A_count == 2) {
+                for (float i = 0; i < 150; i++) {
+                    touch.update();
+                    course.update();
+                    rgb_PID.acceralation_run2();
+                    wheel.Acceralation_control();
+                }
+                L_count++;
                 status = STATUS.L_RUN;
             }
+
+            // L_count++;
+            // status = STATUS.L_RUN;
+            // ã‚«ãƒ¼ãƒ–ã®æ‰‹å‰ã§caseå¤‰æ›´ã—ãŸã„â‡“
+            // if () {
+            //
+            // }
+
             break;
 
         case R_RUN:
+
             touch.update();
             course.update();
             rgb_PID.run();
-            wheel.control();
+            wheel.R_control();
+            if (R_count == 1) {
+                A_count++;
+                status = STATUS.ACCELERATION;
+            }
+
             if (course.getcolorID() == 2) {
                 B_count++;
                 status = STATUS.BLUE;
             }
             break;
         case L_RUN:
-            touch.update();
-            course.update();
-            rgb_PID.run();
-            wheel.control2();
-            if (course.getcolorID() == 2) {
-                B_count++;
-                status = STATUS.BLUE;
+
+            if (L_count == 1) {
+                for (float i = 0; i < 85; i++) {
+                    touch.update();
+                    course.update();
+                    rgb_PID.run();
+                    wheel.L_control();
+                }
+                A_count++;
+                status = STATUS.ACCELERATION;
+            } else if (L_count == 2) {
+
+                touch.update();
+                course.update();
+                rgb_PID.run();
+                wheel.L_control();
+                if (course.getcolorID() == 2) {
+                    B_count++;
+                    // status = STATUS.BLUE;
+                }
+
             }
+
             break;
 
         case BLUE:
@@ -139,17 +195,17 @@ public class Game {
             // status = STATUS.L_RUN;
             // }
 
-            if (B_count == 1) {
-                leftMotor.setSpeed(270);
-                rightMotor.setSpeed(120);
+            if (B_count == 3) {
+                leftMotor.setSpeed(130);
+                rightMotor.setSpeed(200);
                 leftMotor.forward();
                 rightMotor.forward();
-                Delay.msDelay(700);
-                status = STATUS.R_RUN;
+                Delay.msDelay(1000);
+                status = STATUS.L_RUN;
                 // course.update();
                 // rgb_PID.run();
                 // wheel.control2();
-                // // course.hsv_H() <=155
+                // course.hsv_H() <=155
                 // if (course.getcolorID() == -1) {
                 // leftMotor.setSpeed(230);
                 // rightMotor.setSpeed(160);
@@ -158,17 +214,17 @@ public class Game {
                 // Delay.msDelay(500);
                 // status = STATUS.R_RUN;
                 // }
-            } else if (B_count == 2) {
-                leftMotor.setSpeed(220);
+            } else if (B_count == 4) {
+                leftMotor.setSpeed(270);
                 rightMotor.setSpeed(150);
                 leftMotor.forward();
                 rightMotor.forward();
-                Delay.msDelay(500);
+                Delay.msDelay(1000);
                 status = STATUS.L_RUN;
                 // course.update();
                 // rgb_PID.run();
                 // wheel.control();
-                // // course.hsv_H() <=195
+                // course.hsv_H() <=195
                 // if (course.getcolorID() == -1) {
                 // leftMotor.setSpeed(160);
                 // rightMotor.setSpeed(230);
@@ -177,33 +233,6 @@ public class Game {
                 // Delay.msDelay(500);
                 // status = STATUS.L_RUN;
                 // }
-
-            } else if (B_count == 3) {
-                leftMotor.setSpeed(180);
-                rightMotor.setSpeed(220);
-                leftMotor.forward();
-                rightMotor.forward();
-                Delay.msDelay(2000);
-                status = STATUS.L_RUN;
-                // course.update();
-                // rgb_PID.run();
-                // wheel.control2();
-                // // course.hsv_H() <=140
-                // if (course.getcolorID() == -1) {
-                // leftMotor.setSpeed(200);
-                // rightMotor.setSpeed(190);
-                // leftMotor.forward();
-                // rightMotor.forward();
-                // Delay.msDelay(700);
-                // status = STATUS.L_RUN;
-                // }
-            } else {
-                leftMotor.setSpeed(230);
-                rightMotor.setSpeed(160);
-                leftMotor.forward();
-                rightMotor.forward();
-                Delay.msDelay(500);
-                status = STATUS.R_RUN;
 
             }
 
@@ -226,6 +255,18 @@ public class Game {
 
     public int getB_count() {
         return B_count;
+    }
+
+    public int getA_count() {
+        return A_count;
+    }
+
+    public int getR_count() {
+        return R_count;
+    }
+
+    public int getL_count() {
+        return L_count;
     }
 
     public STATUS getStatus() {

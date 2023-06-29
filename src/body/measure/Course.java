@@ -34,6 +34,15 @@ public class Course implements Measure {
     private float RGB_black;
     private float RGB_target;
 
+    private int colorID_bor = -1;
+    private int colorID_bk = 0;
+    private int colorID_wh = 1;
+    private int colorID_bl = 2;
+    private int colorID_gr = 3;
+    private int colorID_ye = 4;
+    private int colorID_re = 5;
+    private int colorID_br = 6;
+
     int divite = 10000000;
 
     public Course(EV3ColorSensor colorSensor) {
@@ -89,10 +98,11 @@ public class Course implements Measure {
         } else if (hsv_min() == color_G2) {
             float H2 = 60 * (color_R2 - color_B2) / (hsv_v() - hsv_min()) + 300;
             return H2;
-        } else if(hsv_min() == color_B2){
+        } else if (hsv_min() == color_B2) {
             float H3 = 60 * (color_G2 - color_R2) / (hsv_v() - hsv_min()) + 60;
             return H3;
-        }return 361;
+        }
+        return 361;
     }
 
     public float hsv_H() {
@@ -103,17 +113,34 @@ public class Course implements Measure {
             return hsv_h();
         }
     }
+
     public float getS() {
-        float S = hsv_s()*100;
+        float S = hsv_s() * 100;
         return S;
     }
+
     public float getV() {
-        float V = hsv_v()*100;
+        float V = hsv_v() * 100;
         return V;
     }
 
     // HSVÇÃêFîªíË////////////////////////////////////////////////////////////////////////////////
+    public int getJudge_hsv() {
+        if (getS() < 80) {
+            if (color_R <= 5 && color_G <= 5 && color_B <= 5 && hsv_H() >= 300) {
+                return colorID_bk;
 
+            } else if (color_R >= 25 && color_G >= 25 && color_B >= 25) {
+                return colorID_wh;
+            } // else if (color_R >= 6 && color_R <= 24 && color_G >= 6 &&
+              // color_G <= 24 && color_B >= 6 && color_B <= 24) {
+            return colorID_bor;
+            // }
+        } else if (color_R <= 5 && color_G <= 5 && color_B <= 5 && hsv_H() >= 300) {
+            return colorID_bk;
+        }
+        return colorID_bl;
+    }
     // public float getJudge_hsv() {
     // if(hsv_s() <= 165){
     // if (color) {
