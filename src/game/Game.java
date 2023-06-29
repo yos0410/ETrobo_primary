@@ -38,11 +38,6 @@ public class Game {
     int A_count = 0;
     int R_count = 0;
     int L_count = 0;
-    //
-    float S_First_Delay = 170;
-    float C_First_Delay = 150;
-
-    float S_Second_Delay = 85;
 
     public enum STATUS {
         CALIBRATION_WHITE, CALIBRATION_BLACK, WAITSTART, RUN, R_RUN, Turn_R_RUN, L_RUN, END, BLUE, GETLOG, ACCELERATION
@@ -120,7 +115,7 @@ public class Game {
             break;
         case ACCELERATION:
             if (A_count == 1) {
-                for (float i = 0; i <= S_First_Delay; i++) {
+                for (float i = 0; i <= 170; i++) {
                     touch.update();
                     course.update();
                     rgb_PID.acceralation_run();
@@ -129,7 +124,7 @@ public class Game {
                 L_count++;
                 status = STATUS.L_RUN;
             } else if (A_count == 2) {
-                for (float i = 0; i < S_Second_Delay; i++) {
+                for (float i = 0; i < 150; i++) {
                     touch.update();
                     course.update();
                     rgb_PID.acceralation_run2();
@@ -167,7 +162,7 @@ public class Game {
         case L_RUN:
 
             if (L_count == 1) {
-                for (float i = 0; i < C_First_Delay; i++) {
+                for (float i = 0; i < 85; i++) {
                     touch.update();
                     course.update();
                     rgb_PID.run();
@@ -183,7 +178,7 @@ public class Game {
                 wheel.L_control();
                 if (course.getcolorID() == 2) {
                     B_count++;
-                    status = STATUS.BLUE;
+                    // status = STATUS.BLUE;
                 }
 
             }
@@ -237,13 +232,6 @@ public class Game {
                 // status = STATUS.L_RUN;
                 // }
 
-            } else {
-                leftMotor.setSpeed(230);
-                rightMotor.setSpeed(160);
-                leftMotor.forward();
-                rightMotor.forward();
-                Delay.msDelay(1000);
-                status = STATUS.R_RUN;
             }
 
             break;
