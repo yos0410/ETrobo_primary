@@ -3,7 +3,7 @@ package task;
 import lejos.hardware.Sound;
 
 /**
- * Beep ƒNƒ‰ƒX
+ * Beep ã‚¯ãƒ©ã‚¹
  * 
  * @author 
  */

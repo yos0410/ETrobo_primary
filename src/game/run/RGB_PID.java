@@ -8,21 +8,21 @@ public class RGB_PID {
     private Wheel wheel;
     private Game game;
 
-    private float forward = 150.0f;// 前進速度
-    private float forward2 = 200.0f;// 前進速度
-    private float forward3 = 200.0f;// 前進速度
+    private float forward = 150.0f;// 蜑埼�ｲ騾溷ｺｦ
+    private float forward2 = 200.0f;// 蜑埼�ｲ騾溷ｺｦ
+    private float forward3 = 200.0f;// 蜑埼�ｲ騾溷ｺｦ
     private float Kp = 800.0f;
     private float Ki = 20.0f;
     private float Kd = 250.0f;
     
-    // 安定走行 200 800 20 250
+    // 螳牙ｮ夊ｵｰ陦� 200 800 20 250
     private float p;
 
     private float lasterr;
     private float last2err;
 
-    private float err;// 輝度値-目標輝度値
-    private float diff;// 微分値
+    private float err;// 霈晏ｺｦ蛟､-逶ｮ讓呵ｼ晏ｺｦ蛟､
+    private float diff;// 蠕ｮ蛻�蛟､
     private float integral;//
 
     public RGB_PID(Course course, Wheel wheel) {
@@ -31,91 +31,91 @@ public class RGB_PID {
     }
 
     public void acceralation_run() {
-        // 目標輝度値
+        // 逶ｮ讓呵ｼ晏ｺｦ蛟､
         float target = course.getDivideRGB_Target();
-        // 現在の輝度値
+        // 迴ｾ蝨ｨ縺ｮ霈晏ｺｦ蛟､
         float brightness = course.getDivideRGB();
         
-        // エラー値
+        // 繧ｨ繝ｩ繝ｼ蛟､
         err = brightness - target;
         
-        // 微分値の計算
+        // 蠕ｮ蛻�蛟､縺ｮ險育ｮ�
         diff = (err - lasterr) - (lasterr - last2err);
         
         //
         integral = err;
         
-        // pの計算
+        // p縺ｮ險育ｮ�
         p = p + Kp * (err - lasterr) + Ki * integral + Kd * diff;
         
-        // 前回を前々回に
+        // 蜑榊屓繧貞燕縲�蝗槭↓
         last2err = lasterr;
-        // 今回を前回に
+        // 莉雁屓繧貞燕蝗槭↓
         lasterr = err;
-        // 速度、操作量設定
+        // 騾溷ｺｦ縲∵桃菴憺㍼險ｭ螳�
         wheel.setForward(forward);
         wheel.setPid(p);
-        //加速⇓
+        //蜉�騾溪∮
         if (forward <= 400 ){
             this.forward += 5;
         }
     }
     /**
-     * 走行する
+     * 襍ｰ陦後☆繧�
      */
     public void run() {
-        // 目標輝度値
+        // 逶ｮ讓呵ｼ晏ｺｦ蛟､
         float target = course.getDivideRGB_Target();
-        // 現在の輝度値
+        // 迴ｾ蝨ｨ縺ｮ霈晏ｺｦ蛟､
         float brightness = course.getDivideRGB();
 
-        // エラー値
+        // 繧ｨ繝ｩ繝ｼ蛟､
         err = brightness - target;
 
-        // 微分値の計算
+        // 蠕ｮ蛻�蛟､縺ｮ險育ｮ�
         diff = (err - lasterr) - (lasterr - last2err);
 
         //
         integral = err;
 
-        // pの計算
+        // p縺ｮ險育ｮ�
         p = p + Kp * (err - lasterr) + Ki * integral + Kd * diff;
 
-        // 前回を前々回に
+        // 蜑榊屓繧貞燕縲�蝗槭↓
         last2err = lasterr;
-        // 今回を前回に
+        // 莉雁屓繧貞燕蝗槭↓
         lasterr = err;
-        // 速度、操作量設定
+        // 騾溷ｺｦ縲∵桃菴憺㍼險ｭ螳�
         wheel.setForward(forward2);
         wheel.setPid(p);
         
     }
     public void acceralation_run2() {
-        // 目標輝度値
+        // 逶ｮ讓呵ｼ晏ｺｦ蛟､
         float target = course.getDivideRGB_Target();
-        // 現在の輝度値
+        // 迴ｾ蝨ｨ縺ｮ霈晏ｺｦ蛟､
         float brightness = course.getDivideRGB();
         
-        // エラー値
+        // 繧ｨ繝ｩ繝ｼ蛟､
         err = brightness - target;
         
-        // 微分値の計算
+        // 蠕ｮ蛻�蛟､縺ｮ險育ｮ�
         diff = (err - lasterr) - (lasterr - last2err);
         
         //
         integral = err;
         
-        // pの計算
+        // p縺ｮ險育ｮ�
         p = p + Kp * (err - lasterr) + Ki * integral + Kd * diff;
         
-        // 前回を前々回に
+        // 蜑榊屓繧貞燕縲�蝗槭↓
         last2err = lasterr;
-        // 今回を前回に
+        // 莉雁屓繧貞燕蝗槭↓
         lasterr = err;
-        // 速度、操作量設定
+        // 騾溷ｺｦ縲∵桃菴憺㍼險ｭ螳�
         wheel.setForward(forward3);
         wheel.setPid(p);
-        //加速⇓
+        //蜉�騾溪∮
         if (forward3 <= 400 ){
             this.forward3 += 5;
         }

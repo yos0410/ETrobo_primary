@@ -5,7 +5,7 @@ import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 import game.Game;
 /**
- * ‹£‹Zƒ^ƒXƒN
+ * ç«¶æŠ€ã‚¿ã‚¹ã‚¯
  * 
  * @author 
  */

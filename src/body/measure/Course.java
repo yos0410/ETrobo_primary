@@ -7,7 +7,7 @@ import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.SensorMode;
 
 /**
- * ˜H–ÊŒv‘ªƒNƒ‰ƒX
+ * è·¯é¢è¨ˆæ¸¬ã‚¯ãƒ©ã‚¹
  * 
  * @author
  *
@@ -56,7 +56,7 @@ public class Course implements Measure {
     }
 
     /**
-     * XV‚·‚é
+     * æ›´æ–°ã™ã‚‹
      */
     @Override
     public void update() {
@@ -124,7 +124,7 @@ public class Course implements Measure {
         return V;
     }
 
-    // HSV‚ÌF”»’è////////////////////////////////////////////////////////////////////////////////
+    // HSVã®è‰²åˆ¤å®š////////////////////////////////////////////////////////////////////////////////
     public int getJudge_hsv() {
         if (getS() < 80) {
             if (color_R <= 5 && color_G <= 5 && color_B <= 5 && hsv_H() >= 300) {
@@ -205,7 +205,7 @@ public class Course implements Measure {
         // color_B >= 10 && color_R <= 6
         // color_B >= 9 && color_G <= 13 && color_R <=7
         // color_R >= 10 && color_R <= 11 && color_G >= 16 && color_G <= 17 &&
-        // color_B >= 16 ‚¢‚¯‚é‚â‚Â
+        // color_B >= 16 ã„ã‘ã‚‹ã‚„ã¤
         if (color_R >= 10 && color_R <= 11 && color_G >= 16 && color_G <= 17 && color_B >= 16) {
             return true;
         }

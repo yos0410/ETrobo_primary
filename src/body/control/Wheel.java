@@ -5,7 +5,7 @@ import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.utility.Delay;
 
 /**
- * Ô—Ö§ŒäƒNƒ‰ƒX
+ * è»Šè¼ªåˆ¶å¾¡ã‚¯ãƒ©ã‚¹
  * 
  * @author
  *
@@ -20,8 +20,8 @@ public class Wheel {
     private float rightSpeed;
 
     private float p;
-    public float EDGE = 1.0f;// 1=‰E -1=¶
-    // private float L_EDGE = -1.0f;// 1=‰E -1=¶
+    public float EDGE = 1.0f;// 1=å³ -1=å·¦
+    // private float L_EDGE = -1.0f;// 1=å³ -1=å·¦
 
     public Wheel(EV3LargeRegulatedMotor leftMotor, EV3LargeRegulatedMotor rightMotor) {
         this.leftMotor = leftMotor;
@@ -29,11 +29,11 @@ public class Wheel {
     }
 
     /**
-     * §Œä‚·‚é
+     * åˆ¶å¾¡ã™ã‚‹
      */
 
     public void Acceralation_control() {
-        // ‚±‚±‹ó—“
+        // ã“ã“ç©ºæ¬„
         leftSpeed = forward + EDGE * p;
         rightSpeed = forward - EDGE * p;
         leftMotor.setSpeed(leftSpeed);
@@ -54,7 +54,7 @@ public class Wheel {
 
 
     public void R_control() {
-        // ‚±‚±‹ó—“
+        // ã“ã“ç©ºæ¬„
         leftSpeed = forward - EDGE * p;
         rightSpeed = forward + EDGE * p;
         leftMotor.setSpeed(leftSpeed);
@@ -74,7 +74,7 @@ public class Wheel {
     }
 
     public void L_control() {
-        // ‚±‚±‹ó—“
+        // ã“ã“ç©ºæ¬„
         leftSpeed = forward + EDGE * p;
         rightSpeed = forward - EDGE * p;
         leftMotor.setSpeed(leftSpeed);

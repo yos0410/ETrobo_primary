@@ -4,7 +4,7 @@ import lejos.hardware.sensor.EV3TouchSensor;
 import lejos.hardware.sensor.SensorMode;
 
 /**
- * ƒ^ƒbƒ`Œv‘ªƒNƒ‰ƒX
+ * ã‚¿ãƒƒãƒè¨ˆæ¸¬ã‚¯ãƒ©ã‚¹
  * 
  * @author 
  *
@@ -18,22 +18,22 @@ public class Touch implements Measure {
     private boolean isUpped;
 
     public Touch(EV3TouchSensor touchSensor) {
-        // ‹ó”’
+        // ç©ºç™½
         this.touchSensor = touchSensor;
         sensorMode = touchSensor.getTouchMode();
         value  = new float[sensorMode.sampleSize()];
         }
 
     /**
-     * XV‚·‚é
+     * æ›´æ–°ã™ã‚‹
      */
     @Override
     public void update() {
-        // ƒ^ƒbƒ`ƒZƒ“ƒT‚ª‰Ÿ‚³‚ê‚½‚©i¡‚Ìó‘Ôj
+        // ã‚¿ãƒƒãƒã‚»ãƒ³ã‚µãŒæŠ¼ã•ã‚ŒãŸã‹ï¼ˆä»Šã®çŠ¶æ…‹ï¼‰
         sensorMode.fetchSample(value, 0);
         isPressed = ((int) value[0] != 0);
 
-        // ƒ^ƒbƒ`ƒZƒ“ƒT‚ª—£‚³‚ê‚½‚©i‘O‰ñ‚Æ¡‚Ìó‘Ô‚ğ”äŠrj
+        // ã‚¿ãƒƒãƒã‚»ãƒ³ã‚µãŒé›¢ã•ã‚ŒãŸã‹ï¼ˆå‰å›ã¨ä»Šã®çŠ¶æ…‹ã‚’æ¯”è¼ƒï¼‰
         if (isPressedOld == true && isPressed == false ) {
             isUpped = true;
         } else {
