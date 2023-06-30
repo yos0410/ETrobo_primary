@@ -14,13 +14,13 @@ import lejos.utility.Delay;
 import task.Beep;
 
 /**
- * 競技クラス インスタンスを単一にするため、Singleton パターンを採用
+ * 驕ｶ�ｽｶ隰夲ｿｽ郢ｧ�ｽｯ郢晢ｽｩ郢ｧ�ｽｹ 郢ｧ�ｽ､郢晢ｽｳ郢ｧ�ｽｹ郢ｧ�ｽｿ郢晢ｽｳ郢ｧ�ｽｹ郢ｧ雋櫁�ｰ闕ｳ�ｿｽ邵ｺ�ｽｫ邵ｺ蜷ｶ�ｽ狗ｸｺ貅假ｽ∫ｸｲ繝ｾingleton 郢昜ｻ｣縺｡郢晢ｽｼ郢晢ｽｳ郢ｧ蜻域ｲｻ騾包ｽｨ
  * 
  * @author
  *
  */
 public class Game {
-    // タスクの呼び出し回数
+    // 郢ｧ�ｽｿ郢ｧ�ｽｹ郢ｧ�ｽｯ邵ｺ�ｽｮ陷ｻ�ｽｼ邵ｺ�ｽｳ陷�ｽｺ邵ｺ諤懷ｱ楢ｬｨ�ｽｰ
     private int count;
 
     private static Game instance = new Game();
@@ -57,7 +57,7 @@ public class Game {
         this.rgb_PID = new RGB_PID(course, wheel);
         status = STATUS.CALIBRATION_WHITE;
 
-        // // 暖機運転
+        // // 隴牙戟�ｽｩ貊�ﾂｰ髴��ｽ｢
         // for (int i = 0; i < 1500; i++) {
         // course.update();
         // wheel.control();
@@ -70,9 +70,9 @@ public class Game {
     }
 
     /**
-     * 実施する
+     * 陞ｳ貊灘多邵ｺ蜷ｶ�ｽ�
      * 
-     * @return 実施中は false、終了時は true を返す
+     * @return 陞ｳ貊灘多闕ｳ�ｽｭ邵ｺ�ｽｯ false邵ｲ竏ｫ�ｽｵ繧��ｽｺ�ｿｽ隴弱ｅ�ｿｽ�ｽｯ true 郢ｧ螳夲ｽｿ譁絶�
      */
     public boolean run() {
         switch (status) {
@@ -113,10 +113,10 @@ public class Game {
                 status = STATUS.ACCELERATION;
             }
             break;
-            //加速する
+            //陷会ｿｽ鬨ｾ貅倪�郢ｧ�ｿｽ
         case ACCELERATION:
             if (A_count == 1) {
-                //forward=200の場合85回くらい回したらで4秒くらい
+                //forward=200邵ｺ�ｽｮ陜｣�ｽｴ陷ｷ�ｿｽ85陜玲ｧｭ�ｿ･郢ｧ蟲ｨ�ｼ櫁摎讒ｭ�ｼ�邵ｺ貅假ｽ臥ｸｺ�ｽｧ4驕伜�ｵ�ｿ･郢ｧ蟲ｨ�ｼ�
                 for (float i = 0; i <= 170; i++) {
                     touch.update();
                     course.update();
@@ -126,7 +126,7 @@ public class Game {
                 L_count++;
                 status = STATUS.L_RUN;
             } else if (A_count == 2) {
-                for (float i = 0; i < 150; i++) {
+                for (float i = 0; i < 110; i++) {
                     touch.update();
                     course.update();
                     rgb_PID.acceralation_run2();
@@ -138,7 +138,7 @@ public class Game {
 
             // L_count++;
             // status = STATUS.L_RUN;
-            // カーブの手前でcase変更したい⇓
+            // 郢ｧ�ｽｫ郢晢ｽｼ郢晄じ�ｿｽ�ｽｮ隰�蜿･辯慕ｸｺ�ｽｧcase陞溽判蟲ｩ邵ｺ蜉ｱ笳�邵ｺ�ｿｽ遶搾ｿｽ
             // if () {
             //
             // }
@@ -164,7 +164,7 @@ public class Game {
         case L_RUN:
 
             if (L_count == 1) {
-                for (float i = 0; i < 85; i++) {
+                for (float i = 0; i < 120; i++) {
                     touch.update();
                     course.update();
                     rgb_PID.run();
@@ -178,11 +178,16 @@ public class Game {
                 course.update();
                 rgb_PID.run();
                 wheel.L_control();
-                if (course.getcolorID() == 2) {
-                    B_count++;
-                    // status = STATUS.BLUE;
-                }
+                // if (course.getcolorID() == 2) {
+                // B_count++;
+                // // status = STATUS.BLUE;
+                // }
 
+            }else {
+                touch.update();
+                course.update();
+                rgb_PID.run();
+                wheel.L_control();
             }
 
             break;
