@@ -105,7 +105,8 @@ public class Log {
         LCD.drawString(Float.toString(game.wheel.getLeftSpeed()), 11, 7);
         LCD.drawString("RightSpeed", 0, 8);
         LCD.drawString(Float.toString(game.wheel.getRightSpeed()), 11, 8);
-
+//        LCD.drawString("Distance", 0, 9);
+//        LCD.drawString(Double.toString(game.localization.getDistance()), 11, 9);
     }
 
     public void countUp() {
@@ -163,7 +164,8 @@ public class Log {
                 sb.append(Float.toString(data.getLeftSpeed()));
                 sb.append(",");
                 sb.append(Float.toString(data.getRightSpeed()));
-                sb.append(",");
+//                sb.append(",");
+//                sb.append(Double.toString(data.getDistance()));
                 sb.append("\r\n");
             }
             
@@ -177,5 +179,4 @@ public class Log {
             e.printStackTrace();
         }
     }
-
 }
